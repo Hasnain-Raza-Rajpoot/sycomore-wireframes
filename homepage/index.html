@@ -1,0 +1,1664 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sycomore — Homepage Wireframe</title>
+    <style>
+      /* ══ RESET ══ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Georgia", serif;
+        background: #f4f4f2;
+        color: #111;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      /* ══ VARIABLES ══ */
+      :root {
+        --border: #c8c8c4;
+        --box: #ddddd8;
+        --box-dark: #c8c8c4;
+        --label: #666;
+        --accent: #111;
+        --white: #fff;
+        --light: #f4f4f2;
+        --green: #4a7c59;
+        --green-light: #e8f0eb;
+        --cause-tag: #2d5a3d;
+      }
+
+      /* ══ WF ANNOTATION ══ */
+      .wf-badge {
+        display: inline-block;
+        background: #2d5a3d;
+        color: #fff;
+        font-family: "Courier New", monospace;
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        padding: 2px 7px;
+        border-radius: 2px;
+        text-transform: uppercase;
+        flex-shrink: 0;
+        margin-right: 5px;
+      }
+      .wf-label {
+        font-family: "Courier New", monospace;
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #999;
+        border: 1px dashed #ccc;
+        padding: 2px 6px;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+
+      /* ══ FLOATING TOOLBAR ══ */
+      .wf-toolbar {
+        position: fixed;
+        top: 50%;
+        right: 12px;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        z-index: 999;
+      }
+      .wf-chip {
+        background: #2d5a3d;
+        color: #fff;
+        font-family: "Courier New", monospace;
+        font-size: 9px;
+        padding: 4px 8px;
+        border-radius: 2px;
+        white-space: nowrap;
+        letter-spacing: 0.06em;
+      }
+      .wf-chip span {
+        color: #a8d4b8;
+      }
+
+      /* ══════════════════════════
+   1. TOP NAV
+══════════════════════════ */
+      .nav-wrap {
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav {
+        max-width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        height: 58px;
+        gap: 0;
+      }
+
+      /* Logo */
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        margin-right: 32px;
+      }
+      .nav-logo-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--box);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        color: var(--label);
+        font-family: "Courier New", monospace;
+      }
+      .nav-logo-text {
+        font-family: "Georgia", serif;
+        font-size: 15px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      /* Nav links */
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        flex: 1;
+        flex-wrap: nowrap;
+        overflow: hidden;
+      }
+      .nav-links a {
+        color: #222;
+        text-decoration: none;
+        font-size: 12px;
+        padding: 0 10px;
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+        border-right: none;
+      }
+      .nav-links a:hover {
+        text-decoration: underline;
+      }
+
+      /* Right side */
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+        margin-left: 16px;
+      }
+      .sort-filter-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        cursor: pointer;
+        color: #333;
+        border: none;
+        background: none;
+        font-family: inherit;
+        letter-spacing: 0.04em;
+      }
+      .sort-filter-btn .icon-box {
+        width: 20px;
+        height: 20px;
+        background: var(--box);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 8px;
+      }
+      .nav-icon {
+        width: 32px;
+        height: 32px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .cart-count {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        background: #c44;
+        color: #fff;
+        font-size: 8px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Courier New", monospace;
+      }
+
+      /* ══════════════════════════
+   2. HERO CAROUSEL (split layout)
+══════════════════════════ */
+      .hero {
+        position: relative;
+        background: #f0f0ee;
+        overflow: hidden;
+        height: 520px;
+        border-bottom: 1px solid var(--border);
+      }
+      .hero-track {
+        display: flex;
+        height: 100%;
+        transition: transform 0.5s ease;
+      }
+      .hero-slide {
+        min-width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+      }
+      /* Left: artwork image */
+      .hero-image-pane {
+        width: 45%;
+        height: 100%;
+        background: var(--box);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        color: var(--label);
+        font-family: "Courier New", monospace;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        border-right: 1px solid var(--border);
+        flex-shrink: 0;
+      }
+      .hero-image-pane.slide2 {
+        background: #ccc8c0;
+      }
+      .hero-image-pane.slide3 {
+        background: #c4ccc8;
+      }
+      .hero-image-pane.slide4 {
+        background: #ccc4c0;
+      }
+      /* Right: text content */
+      .hero-text-pane {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 64px 72px;
+        background: #f7f7f5;
+      }
+      .hero-slide-label {
+        font-size: 10px;
+        color: var(--label);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        font-family: "Courier New", monospace;
+      }
+      .hero-text-pane h2 {
+        font-size: 28px;
+        font-weight: normal;
+        line-height: 1.35;
+        margin-bottom: 20px;
+        letter-spacing: -0.01em;
+      }
+      .hero-text-pane p {
+        font-size: 14px;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 28px;
+        max-width: 380px;
+      }
+      .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        color: #111;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        text-decoration: none;
+        padding: 0;
+      }
+      .hero-cta .arrow {
+        font-size: 16px;
+      }
+      .hero-cta:hover .arrow {
+        transform: translateX(4px);
+        transition: transform 0.2s;
+      }
+
+      /* Progress bars (like PDF design) */
+      .hero-progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        height: 3px;
+      }
+      .hero-prog-bar {
+        flex: 1;
+        background: #ddd;
+        cursor: pointer;
+        transition: background 0.3s;
+        border-right: 2px solid #f7f7f5;
+      }
+      .hero-prog-bar.active {
+        background: #111;
+      }
+
+      /* Carousel nav arrows */
+      .hero-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.85);
+        border: 1px solid var(--border);
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+      }
+      .hero-arrow.prev {
+        right: 60px;
+        bottom: auto;
+        top: auto;
+        bottom: 20px;
+        top: unset;
+      }
+      .hero-arrow.next {
+        right: 16px;
+        bottom: auto;
+        top: auto;
+        bottom: 20px;
+        top: unset;
+      }
+      /* Position them bottom-right as per PDF */
+      .hero-arrows {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        gap: 4px;
+        z-index: 10;
+      }
+      .h-arr {
+        background: rgba(255, 255, 255, 0.85);
+        border: 1px solid var(--border);
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .h-arr:hover {
+        background: #f0f0f0;
+      }
+
+      /* ══════════════════════════
+   SECTION WRAPPER
+══════════════════════════ */
+      .section {
+        padding: 40px 0 32px;
+        border-bottom: 1px solid #e0e0dc;
+      }
+      .section-inner {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+      .section-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+      .section-title {
+        font-size: 22px;
+        font-weight: normal;
+        letter-spacing: -0.01em;
+      }
+      .section-sub {
+        font-size: 13px;
+        color: #777;
+        margin-top: 4px;
+        margin-bottom: 18px;
+      }
+      .section-link {
+        font-size: 12px;
+        color: #111;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      /* ══════════════════════════
+   SCROLL HINT
+══════════════════════════ */
+      .scroll-hint {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 14px;
+        font-family: "Courier New", monospace;
+        font-size: 10px;
+        color: #aaa;
+        letter-spacing: 0.06em;
+      }
+      .scroll-wrap {
+        position: relative;
+      }
+      .scroll-rail {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        padding-bottom: 12px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .scroll-rail::-webkit-scrollbar {
+        height: 3px;
+      }
+      .scroll-rail::-webkit-scrollbar-track {
+        background: #eee;
+      }
+      .scroll-rail::-webkit-scrollbar-thumb {
+        background: #bbb;
+        border-radius: 2px;
+      }
+
+      .scroll-btn {
+        position: absolute;
+        top: 38%;
+        transform: translateY(-50%);
+        z-index: 5;
+        background: #fff;
+        border: 1px solid var(--border);
+        width: 38px;
+        height: 38px;
+        cursor: pointer;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      .scroll-btn.left {
+        left: -19px;
+      }
+      .scroll-btn.right {
+        right: -19px;
+      }
+      .scroll-btn:hover {
+        background: #f4f4f2;
+      }
+
+      /* ══════════════════════════
+   3. ARTWORK CARD (Featured Picks)
+   — alternating portrait / landscape
+══════════════════════════ */
+      .art-card {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        cursor: pointer;
+        position: relative;
+      }
+      .art-card.portrait {
+        width: 200px;
+      }
+      .art-card.landscape {
+        width: 300px;
+      }
+
+      /* Image placeholder */
+      .ac-img {
+        background: var(--box);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        color: var(--label);
+        font-family: "Courier New", monospace;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        transition: background 0.2s;
+        position: relative;
+        overflow: hidden;
+      }
+      .art-card.portrait .ac-img {
+        height: 260px;
+      }
+      .art-card.landscape .ac-img {
+        height: 180px;
+      }
+
+      /* Hover overlay */
+      .ac-hover-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.72);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.25s;
+        padding: 16px;
+        text-align: center;
+      }
+      .ac-img:hover .ac-hover-overlay {
+        opacity: 1;
+      }
+      .hover-cause-tag {
+        background: var(--cause-tag);
+        color: #fff;
+        font-size: 10px;
+        padding: 4px 10px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        font-family: "Courier New", monospace;
+        border-radius: 2px;
+        margin-bottom: 8px;
+      }
+      .hover-info {
+        color: #e8e8e8;
+        font-size: 11px;
+        line-height: 1.5;
+      }
+
+      /* Card meta */
+      .ac-meta {
+        padding: 10px 0 0;
+      }
+      .ac-artist {
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 2px;
+      }
+      .ac-title {
+        font-size: 11px;
+        color: #5a8c6a;
+        font-style: italic;
+        margin-bottom: 6px;
+      }
+      .ac-cause {
+        display: inline-block;
+        background: var(--green-light);
+        color: var(--cause-tag);
+        font-size: 9px;
+        padding: 2px 8px;
+        border: 1px solid #b8d4bf;
+        font-family: "Courier New", monospace;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .ac-prices {
+        font-size: 11px;
+        color: #333;
+      }
+      .ac-prices .print-p {
+        color: #555;
+        margin-right: 8px;
+      }
+      .ac-prices .orig-p {
+        font-weight: bold;
+      }
+      .ac-prices .sold {
+        color: #c44;
+        font-weight: bold;
+      }
+
+      /* ══════════════════════════
+   4. "ALL ARTWORKS FUND" SECTION
+   Same card style, slightly different header
+══════════════════════════ */
+      .fund-header {
+        background: var(--green-light);
+        border: 1px solid #b8d4bf;
+        padding: 18px 24px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .fund-header-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--green);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+      .fund-header-text h3 {
+        font-size: 16px;
+        font-weight: normal;
+      }
+      .fund-header-text p {
+        font-size: 12px;
+        color: #5a8c6a;
+        margin-top: 3px;
+        font-style: italic;
+      }
+
+      /* ══════════════════════════
+   5. FOOTER
+══════════════════════════ */
+      footer {
+        background: #111;
+        color: #ccc;
+        padding: 48px 0 32px;
+      }
+      .footer-inner {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+      .footer-top {
+        display: grid;
+        grid-template-columns: 1.6fr repeat(4, 1fr);
+        gap: 32px;
+        margin-bottom: 40px;
+      }
+      .footer-logo {
+        font-size: 14px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #fff;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      .footer-tagline {
+        font-size: 11px;
+        color: #888;
+        line-height: 1.7;
+        max-width: 220px;
+      }
+      .footer-col h4 {
+        color: #fff;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+      .footer-col ul {
+        list-style: none;
+      }
+      .footer-col ul li {
+        margin-bottom: 8px;
+      }
+      .footer-col ul li a {
+        color: #888;
+        font-size: 11px;
+        text-decoration: none;
+      }
+      .footer-col ul li a:hover {
+        color: #fff;
+      }
+      .footer-address {
+        font-size: 10px;
+        color: #666;
+        margin-top: 12px;
+        line-height: 1.7;
+      }
+      .footer-bottom {
+        border-top: 1px solid #2a2a2a;
+        padding-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .footer-bottom span {
+        font-size: 10px;
+        color: #555;
+      }
+      .footer-legal {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .footer-legal a {
+        font-size: 10px;
+        color: #555;
+        text-decoration: none;
+      }
+      .footer-legal a:hover {
+        color: #ccc;
+      }
+
+      /* ══ SORT & FILTER MODAL ══ */
+      .sf-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 500;
+      }
+      .sf-panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 380px;
+        background: #fff;
+        padding: 32px 28px;
+        overflow-y: auto;
+      }
+      .sf-panel h3 {
+        font-size: 14px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .sf-close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+        color: #888;
+      }
+      .sf-section {
+        margin-bottom: 24px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
+      }
+      .sf-section h4 {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #888;
+        margin-bottom: 12px;
+      }
+      .sf-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+      .sf-cb {
+        width: 18px;
+        height: 18px;
+        border: 1.5px solid #bbb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .sf-cb.checked {
+        background: #111;
+        border-color: #111;
+        color: #fff;
+        font-size: 10px;
+      }
+      .sf-item-label {
+        font-size: 12px;
+        color: #333;
+      }
+      .sf-btns {
+        display: flex;
+        gap: 10px;
+        margin-top: 24px;
+      }
+      .sf-clear {
+        flex: 1;
+        border: 1.5px solid #111;
+        background: none;
+        padding: 10px;
+        font-size: 12px;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .sf-confirm {
+        flex: 1;
+        background: #111;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        font-size: 12px;
+        cursor: pointer;
+        font-family: inherit;
+        border-radius: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ══ FLOATING TOOLBAR ══ -->
+    <div class="wf-toolbar">
+      <div class="wf-chip">🌿 <span>Sycomore WF</span></div>
+      <div class="wf-chip">⬆ <span>Sticky Nav</span></div>
+      <div class="wf-chip">🎠 <span>Carousel</span></div>
+      <div class="wf-chip">↔ <span>Horiz. Scroll</span></div>
+      <div class="wf-chip">🖱 <span>Hover Effects</span></div>
+      <div class="wf-chip">🌍 <span>Impact Causes</span></div>
+    </div>
+
+    <!-- ══════════════════════════════════
+     1. STICKY NAV — all pages from hamburger
+══════════════════════════════════ -->
+    <div class="nav-wrap">
+      <nav class="nav">
+        <!-- Logo -->
+        <div class="nav-logo">
+          <div class="nav-logo-icon">⊞</div>
+          <div class="nav-logo-text">Sycomore</div>
+        </div>
+        <!-- Navigation links (all pages from hamburger menu) -->
+        <div class="nav-links">
+          <a href="#">Artworks</a>
+          <a href="#">Collections</a>
+          <a href="#">Impact</a>
+          <a href="#">About</a>
+          <a href="#">Stories</a>
+          <a href="#">Galleries</a>
+          <a href="#">Scientists</a>
+          <a href="#">Artists</a>
+          <a href="#">Partners</a>
+          <a href="#">Our Team</a>
+          <a href="#">Contact</a>
+        </div>
+        <!-- Right controls -->
+        <div class="nav-right">
+          <button class="sort-filter-btn" onclick="openSF()">
+            <div class="icon-box">⚙</div>
+            Sort &amp; Filter
+          </button>
+          <button class="nav-icon">🔍</button>
+          <button class="nav-icon" style="font-size: 18px">
+            🛒
+            <div class="cart-count">2</div>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- ══════════════════════════════════
+     2. HERO CAROUSEL — split layout (image left, text right)
+     Based on PDF mockup design
+══════════════════════════════════ -->
+    <section class="hero" aria-label="Hero Carousel">
+      <div class="hero-track" id="heroTrack">
+        <!-- Slide 1 -->
+        <div class="hero-slide">
+          <div class="hero-image-pane">
+            [ Full Artwork Image<br />Left Panel — 45% width ]
+          </div>
+          <div class="hero-text-pane">
+            <div class="hero-slide-label">
+              <span class="wf-badge">Slide 1 / 4</span> Featured — Special
+              Edition
+            </div>
+            <h2>
+              100 years of protecting life on earth. Thank you Sir David
+              Attenborough
+            </h2>
+            <p>
+              In May 2026, Sir David Attenborough turns 100. This original
+              artwork celebrates his life's work — and funds real solutions
+              protecting endangered species today.
+            </p>
+            <a class="hero-cta" href="#"
+              >Own the artwork <span class="arrow">→</span></a
+            >
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="hero-slide">
+          <div class="hero-image-pane slide2">
+            [ Full Artwork Image<br />Left Panel — 45% width ]
+          </div>
+          <div class="hero-text-pane">
+            <div class="hero-slide-label">
+              <span class="wf-badge">Slide 2 / 4</span> Campaign Feature
+            </div>
+            <h2>Art Fixing the World</h2>
+            <p>
+              Each artwork directly funds scientific solutions to the
+              environmental issue behind it. Meet the scientists working with
+              artists.
+            </p>
+            <a class="hero-cta" href="#"
+              >Meet the scientists <span class="arrow">→</span></a
+            >
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="hero-slide">
+          <div class="hero-image-pane slide3">
+            [ Full Artwork Image<br />Left Panel — 45% width ]
+          </div>
+          <div class="hero-text-pane">
+            <div class="hero-slide-label">
+              <span class="wf-badge">Slide 3 / 4</span> New Collection
+            </div>
+            <h2>Beneath the Surface</h2>
+            <p>
+              A new collection of original artworks supporting ocean
+              conservation — direct funding for marine ecosystem preservation.
+            </p>
+            <a class="hero-cta" href="#"
+              >Explore the collection <span class="arrow">→</span></a
+            >
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="hero-slide">
+          <div class="hero-image-pane slide4">
+            [ Full Artwork Image<br />Left Panel — 45% width ]
+          </div>
+          <div class="hero-text-pane">
+            <div class="hero-slide-label">
+              <span class="wf-badge">Slide 4 / 4</span> Partner Spotlight
+            </div>
+            <h2>Impact you can see, change you can own</h2>
+            <p>
+              Sycomore's Impact Provenance Original™ — a first-of-its-kind
+              system certifying the environmental impact behind every artwork.
+            </p>
+            <a class="hero-cta" href="#"
+              >Learn about IPO™ <span class="arrow">→</span></a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide progress bars (PDF style) -->
+      <div class="hero-progress" id="heroProg">
+        <div class="hero-prog-bar active" onclick="gotoSlide(0)"></div>
+        <div class="hero-prog-bar" onclick="gotoSlide(1)"></div>
+        <div class="hero-prog-bar" onclick="gotoSlide(2)"></div>
+        <div class="hero-prog-bar" onclick="gotoSlide(3)"></div>
+      </div>
+
+      <!-- Arrows (bottom right, as per PDF) -->
+      <div class="hero-arrows">
+        <button class="h-arr" onclick="shiftSlide(-1)">‹</button>
+        <button class="h-arr" onclick="shiftSlide(1)">›</button>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+     3. FEATURED PICKS — Horizontal scroll
+     Alternating portrait & landscape cards
+     Hover reveals cause info
+══════════════════════════════════ -->
+    <section class="section">
+      <div class="section-inner">
+        <div class="wf-label">
+          Section — Featured Picks (Horizontal Scroll, Alt. Portrait/Landscape)
+        </div>
+        <div class="section-header">
+          <div>
+            <div class="section-title">Featured picks</div>
+            <div class="section-sub">
+              Our panel's favourite pieces this month.
+            </div>
+          </div>
+          <a class="section-link" href="#">View all artworks →</a>
+        </div>
+        <div class="scroll-hint">
+          ← Hover over artworks to see impact cause &nbsp;|&nbsp; Scroll to
+          explore →
+        </div>
+        <div class="scroll-wrap">
+          <button
+            class="scroll-btn left"
+            onclick="scrollRail('featured', -500)"
+          >
+            ‹
+          </button>
+          <div class="scroll-rail" id="featured">
+            <!-- Portrait card 1 -->
+            <div class="art-card portrait">
+              <div class="ac-img">
+                [ Artwork Image ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">🐠 Supports Ocean</div>
+                  <div class="hover-info">
+                    Funds coral reef restoration<br /><br />Click to view
+                    artwork
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Courtenay Kusitor</div>
+                <div class="ac-title">Caught Between Flux &amp; Stillness</div>
+                <div class="ac-cause">Funds coral reef restoration</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £80</span
+                  ><span class="orig-p">Original: £850</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Landscape card 2 -->
+            <div class="art-card landscape">
+              <div class="ac-img">
+                [ Artwork Image — wider format ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">👗 Fast Fashion</div>
+                  <div class="hover-info">
+                    Supporting solutions in fast fashion<br /><br />Click to
+                    view artwork
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Sajida Asif</div>
+                <div class="ac-title">Enough is Enough</div>
+                <div class="ac-cause">Supporting fast fashion solutions</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £75</span
+                  ><span class="orig-p sold">Original: SOLD</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Portrait card 3 -->
+            <div class="art-card portrait">
+              <div class="ac-img">
+                [ Artwork Image ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">🌿 Forests</div>
+                  <div class="hover-info">
+                    Funds forest ecosystem protection<br /><br />Click to view
+                    artwork
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Libby Gallagher</div>
+                <div class="ac-title">Fading Certainties</div>
+                <div class="ac-cause">Funds forest ecosystems</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £90</span
+                  ><span class="orig-p">Original: £900</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Landscape card 4 -->
+            <div class="art-card landscape">
+              <div class="ac-img">
+                [ Artwork Image — wider format ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">🦁 Endangered Species</div>
+                  <div class="hover-info">
+                    Protects endangered species<br /><br />Click to view artwork
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Angelina Wixley</div>
+                <div class="ac-title">In Chase of a Changed World</div>
+                <div class="ac-cause">Protects endangered species</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £80</span
+                  ><span class="orig-p sold">Original: SOLD</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Portrait card 5 -->
+            <div class="art-card portrait">
+              <div class="ac-img">
+                [ Artwork Image ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">🌿 Forests</div>
+                  <div class="hover-info">
+                    Funds forest protection<br /><br />Click to view artwork
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Joshua Dau</div>
+                <div class="ac-title">Empty</div>
+                <div class="ac-cause">Funds forest protection</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £80</span
+                  ><span class="orig-p">Original: £830</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Landscape card 6 -->
+            <div class="art-card landscape">
+              <div class="ac-img">
+                [ Artwork Image — wider format ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">🌊 Ocean</div>
+                  <div class="hover-info">
+                    Funds marine ecosystem preservation<br /><br />Click to view
+                    artwork
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Sofia Bruni</div>
+                <div class="ac-title">Deforestation</div>
+                <div class="ac-cause">Funds forest engineers</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £85</span
+                  ><span class="orig-p">Original: £790</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Portrait card 7 -->
+            <div class="art-card portrait">
+              <div class="ac-img">
+                [ Artwork Image ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">🌊 Ocean</div>
+                  <div class="hover-info">
+                    Funds ocean conservation research<br /><br />Click to view
+                    artwork
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Basmah Omar</div>
+                <div class="ac-title">Emptiness Creeping In</div>
+                <div class="ac-cause">Supports ocean conservation</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £95</span
+                  ><span class="orig-p sold">Original: SOLD</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Landscape card 8 -->
+            <div class="art-card landscape">
+              <div class="ac-img">
+                [ Artwork Image — wider format ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">♻️ Eco Waste</div>
+                  <div class="hover-info">
+                    Supports waste reduction initiatives<br /><br />Click to
+                    view artwork
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Artist Name</div>
+                <div class="ac-title">Artwork Title Here</div>
+                <div class="ac-cause">Supports eco waste solutions</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £70</span
+                  ><span class="orig-p">Original: £780</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            class="scroll-btn right"
+            onclick="scrollRail('featured', 500)"
+          >
+            ›
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+     4. ALL ARTWORKS FUND SOLUTIONS
+     Verified by Sycomore scientists
+     Same card style, different header
+══════════════════════════════════ -->
+    <section class="section">
+      <div class="section-inner">
+        <div class="wf-label">
+          Section — All Artworks Fund Solutions (Horizontal Scroll)
+        </div>
+
+        <!-- Impact header banner -->
+        <div class="fund-header">
+          <div class="fund-header-icon">🔬</div>
+          <div class="fund-header-text">
+            <h3>
+              All art works fund solutions verified by Sycomore scientists
+            </h3>
+            <p>
+              Every purchase directly funds a scientific environmental project —
+              tracked and verified.
+            </p>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <div>
+            <div class="section-title">All Artworks</div>
+            <div class="section-sub">
+              Browse the full collection — each work funds a verified
+              environmental cause.
+            </div>
+          </div>
+          <a class="section-link" href="#">View all →</a>
+        </div>
+
+        <div class="scroll-hint">
+          ← Hover over artworks to reveal their environmental cause
+          &nbsp;|&nbsp; Scroll to explore →
+        </div>
+        <div class="scroll-wrap">
+          <button
+            class="scroll-btn left"
+            onclick="scrollRail('allworks', -500)"
+          >
+            ‹
+          </button>
+          <div class="scroll-rail" id="allworks">
+            <!-- Landscape -->
+            <div class="art-card landscape">
+              <div class="ac-img">
+                [ Artwork Image ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">🦁 Endangered Species</div>
+                  <div class="hover-info">
+                    Supports Endangered Species protection<br /><br />Scientist:
+                    Dr. Jane Morris
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Courtenay Kusitor</div>
+                <div class="ac-title">Caught Between Flux &amp; Stillness</div>
+                <div class="ac-cause">Supports Endangered Species</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £110</span
+                  ><span class="orig-p">Original: £1,200</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Portrait -->
+            <div class="art-card portrait">
+              <div class="ac-img">
+                [ Artwork Image ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">🌊 Ocean</div>
+                  <div class="hover-info">
+                    Funds marine ecosystem preservation<br /><br />Scientist:
+                    Dr. Ahmed Karimi
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Basmah Omar</div>
+                <div class="ac-title">Emptiness Creeping In</div>
+                <div class="ac-cause">Funds ocean conservation</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £95</span
+                  ><span class="orig-p sold">Original: SOLD</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Landscape -->
+            <div class="art-card landscape">
+              <div class="ac-img">
+                [ Artwork Image ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">🌿 Forests</div>
+                  <div class="hover-info">
+                    Funds forest engineers<br /><br />Scientist: Dr. Rosa
+                    Andrade
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Sofia Bruni</div>
+                <div class="ac-title">Deforestation</div>
+                <div class="ac-cause">Funds forest engineers</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £90</span
+                  ><span class="orig-p">Original: £900</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Portrait -->
+            <div class="art-card portrait">
+              <div class="ac-img">
+                [ Artwork Image ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">🦁 Endangered Species</div>
+                  <div class="hover-info">
+                    Protects endangered species<br /><br />Scientist: Dr. Sarah
+                    Lin
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Angelina Wixley</div>
+                <div class="ac-title">In Chase of a Changed World</div>
+                <div class="ac-cause">Protects endangered species</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £75</span
+                  ><span class="orig-p">Original: £790</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Landscape -->
+            <div class="art-card landscape">
+              <div class="ac-img">
+                [ Artwork Image ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">♻️ Eco Waste</div>
+                  <div class="hover-info">
+                    After the Bin — eco waste solutions<br /><br />Scientist:
+                    Dr. Tom Hughes
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Artist Name</div>
+                <div class="ac-title">Artwork Title</div>
+                <div class="ac-cause">Supports eco waste solutions</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £85</span
+                  ><span class="orig-p">Original: £860</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Portrait -->
+            <div class="art-card portrait">
+              <div class="ac-img">
+                [ Artwork Image ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">👗 Fast Fashion</div>
+                  <div class="hover-info">
+                    Disposable Lives — fast fashion<br /><br />Scientist: Dr.
+                    Marie Bonnet
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Artist Name</div>
+                <div class="ac-title">Artwork Title</div>
+                <div class="ac-cause">Fast fashion solutions</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £70</span
+                  ><span class="orig-p">Original: £720</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Landscape -->
+            <div class="art-card landscape">
+              <div class="ac-img">
+                [ Artwork Image ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">🌊 Ocean</div>
+                  <div class="hover-info">
+                    Beneath the Surface — ocean protection<br /><br />Scientist:
+                    Dr. Yuki Tanaka
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Artist Name</div>
+                <div class="ac-title">Artwork Title</div>
+                <div class="ac-cause">Ocean preservation</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £80</span
+                  ><span class="orig-p">Original: £840</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Portrait -->
+            <div class="art-card portrait">
+              <div class="ac-img">
+                [ Artwork Image ]
+                <div class="ac-hover-overlay">
+                  <div class="hover-cause-tag">🌿 Forests</div>
+                  <div class="hover-info">
+                    The Last Canopy — forest conservation<br /><br />Scientist:
+                    Dr. Pablo Cruz
+                  </div>
+                </div>
+              </div>
+              <div class="ac-meta">
+                <div class="ac-artist">Artist Name</div>
+                <div class="ac-title">Artwork Title</div>
+                <div class="ac-cause">Forest conservation</div>
+                <div class="ac-prices">
+                  <span class="print-p">Print: £90</span
+                  ><span class="orig-p">Original: £920</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            class="scroll-btn right"
+            onclick="scrollRail('allworks', 500)"
+          >
+            ›
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+     5. FOOTER — Sycomore branded
+══════════════════════════════════ -->
+    <footer>
+      <div class="footer-inner">
+        <div
+          class="wf-label"
+          style="color: #555; border-color: #333; margin-bottom: 24px"
+        >
+          Footer — Sycomore branded
+        </div>
+        <div class="footer-top">
+          <div>
+            <div class="footer-logo">⊞ Sycomore</div>
+            <div class="footer-tagline">
+              Art that funds scientific solutions protecting life on earth.
+            </div>
+            <div class="footer-address">
+              7 Bell Yard, The Strand<br />London. England. UK<br />Co. No.
+              12436937
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <ul>
+              <li><a href="#">Artworks</a></li>
+              <li><a href="#">Collections</a></li>
+              <li><a href="#">Galleries</a></li>
+              <li><a href="#">Artists</a></li>
+              <li><a href="#">Scientists</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Impact</h4>
+            <ul>
+              <li><a href="#">Impact Overview</a></li>
+              <li><a href="#">IPO™ System</a></li>
+              <li><a href="#">Partners</a></li>
+              <li><a href="#">Become a Partner</a></li>
+              <li><a href="#">World Map</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Our Team</a></li>
+              <li><a href="#">Stories</a></li>
+              <li><a href="#">Company Values</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">Track Your Order</a></li>
+              <li><a href="#">Shipping Conditions</a></li>
+              <li><a href="#">Returns Policy</a></li>
+              <li><a href="#">Wishlist</a></li>
+              <li><a href="#">Sign In / Sign Up</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Sycomore — Impact Provenance Original™</span>
+          <div class="footer-legal">
+            <a href="#">Terms of Use</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Shipping Conditions</a>
+            <a href="#">Exchange &amp; Return Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ══════════════════════════════════
+     SORT & FILTER PANEL (from PDF page 6)
+══════════════════════════════════ -->
+    <div class="sf-overlay" id="sfOverlay" onclick="closeSF(event)">
+      <div class="sf-panel">
+        <h3>
+          Sort &amp; Filter
+          <button class="sf-close" onclick="closeSFBtn()">×</button>
+        </h3>
+
+        <div class="sf-section">
+          <h4>Sort</h4>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb">☐</div>
+            <span class="sf-item-label">Recently Added</span>
+          </div>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb">☐</div>
+            <span class="sf-item-label">Price: High to Low</span>
+          </div>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb">☐</div>
+            <span class="sf-item-label">Price: Low to High</span>
+          </div>
+        </div>
+
+        <div class="sf-section">
+          <h4>Filter by Collection</h4>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb checked">✓</div>
+            <span class="sf-item-label">Beneath the Surface (Oceans)</span>
+          </div>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb">☐</div>
+            <span class="sf-item-label">The Last Canopy (Forests)</span>
+          </div>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb checked">✓</div>
+            <span class="sf-item-label">Disposable Lives (Fast Fashion)</span>
+          </div>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb">☐</div>
+            <span class="sf-item-label">After the Bin (Eco Waste)</span>
+          </div>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb checked">✓</div>
+            <span class="sf-item-label"
+              >Vanishing Neighbours (Endangered Species)</span
+            >
+          </div>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb">☐</div>
+            <span class="sf-item-label"
+              >What the Ground Holds (Soil Health)</span
+            >
+          </div>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb">☐</div>
+            <span class="sf-item-label">Lines of Dust (Desertification)</span>
+          </div>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb">☐</div>
+            <span class="sf-item-label"
+              >Silent Extinction (Biodiversity Loss)</span
+            >
+          </div>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb">☐</div>
+            <span class="sf-item-label">Fragile Skies (Air Pollution)</span>
+          </div>
+        </div>
+
+        <div class="sf-btns">
+          <button class="sf-clear" onclick="clearFilters()">Clear</button>
+          <button class="sf-confirm" onclick="closeSFBtn()">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ JAVASCRIPT ══ -->
+    <script>
+      // ── Hero Carousel ──
+      let slide = 0;
+      const total = 4;
+
+      function updateHero() {
+        document.getElementById("heroTrack").style.transform =
+          `translateX(-${slide * 100}%)`;
+        document.querySelectorAll(".hero-prog-bar").forEach((b, i) => {
+          b.classList.toggle("active", i === slide);
+        });
+      }
+      function shiftSlide(d) {
+        slide = (slide + d + total) % total;
+        updateHero();
+      }
+      function gotoSlide(i) {
+        slide = i;
+        updateHero();
+      }
+      setInterval(() => shiftSlide(1), 5000);
+
+      // ── Scroll Rail ──
+      function scrollRail(id, amt) {
+        document.getElementById(id).scrollBy({ left: amt, behavior: "smooth" });
+      }
+
+      // ── Sort & Filter panel ──
+      function openSF() {
+        document.getElementById("sfOverlay").style.display = "block";
+      }
+      function closeSFBtn() {
+        document.getElementById("sfOverlay").style.display = "none";
+      }
+      function closeSF(e) {
+        if (e.target === document.getElementById("sfOverlay")) closeSFBtn();
+      }
+      function toggleCB(el) {
+        const cb = el.querySelector(".sf-cb");
+        if (cb.classList.contains("checked")) {
+          cb.classList.remove("checked");
+          cb.textContent = "☐";
+        } else {
+          cb.classList.add("checked");
+          cb.textContent = "✓";
+        }
+      }
+      function clearFilters() {
+        document.querySelectorAll(".sf-cb").forEach((cb) => {
+          cb.classList.remove("checked");
+          cb.textContent = "☐";
+        });
+      }
+    </script>
+  </body>
+</html>
