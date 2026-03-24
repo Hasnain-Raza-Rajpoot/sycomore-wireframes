@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sycomore — Artists Wireframe</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Georgia', serif; background: #fff; color: #111; min-height: 100vh; }
+ 
+/* ── HUB HEADER (wireframe meta) ── */
+.hub-bar {
+  background: #111; color: #fff;
+  padding: 12px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 3px solid #2d5a3d;
+}
+.hub-bar-left { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #888; }
+.hub-bar-left strong { color: #fff; }
+.hub-bar-right { display: flex; align-items: center; gap: 10px; }
+.wf-badge { background: #2d5a3d; color: #fff; font-family: 'Courier New', monospace; font-size: 9px; letter-spacing: .1em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+ 
+/* ══════════════════════════════════
+   SYCOMORE SITE CHROME
+══════════════════════════════════ */
+ 
+/* Top nav */
+.site-nav {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 18px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.nav-logo { display: flex; flex-direction: column; gap: 2px; }
+.nav-logo-icon {
+  width: 52px; height: 52px;
+  background: #111;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; color: #fff;
+  border-radius: 2px; margin-bottom: 2px;
+}
+.nav-logo-text { font-size: 14px; letter-spacing: .18em; font-family: 'Courier New', monospace; font-weight: bold; color: #111; line-height: 1; }
+.nav-logo-sub { font-size: 8px; letter-spacing: .16em; color: #888; font-family: 'Courier New', monospace; text-transform: uppercase; }
+.nav-icons { display: flex; align-items: center; gap: 22px; }
+.nav-icon-btn { position: relative; cursor: pointer; color: #111; font-size: 20px; }
+.nav-icon-btn .cart-badge {
+  position: absolute; top: -6px; right: -7px;
+  background: #e04040; color: #fff; font-size: 9px;
+  width: 16px; height: 16px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Courier New', monospace;
+}
+ 
+/* Page title */
+.page-title-bar {
+  text-align: center; padding: 36px 40px 28px;
+  border-bottom: 1px solid #eee;
+}
+.page-title-bar h1 { font-size: 42px; font-weight: 700; letter-spacing: -.01em; color: #111; }
+ 
+/* ══════════════════════════════════
+   MAIN TWO-COLUMN LAYOUT
+══════════════════════════════════ */
+.main-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  min-height: calc(100vh - 180px);
+}
+ 
+/* ── LEFT SIDEBAR ── */
+.left-col {
+  border-right: 1px solid #e8e8e8;
+  display: flex; flex-direction: column;
+  position: sticky; top: 92px;
+  height: calc(100vh - 92px);
+  overflow: hidden;
+}
+ 
+/* Search */
+.search-area {
+  padding: 20px 24px 14px;
+  border-bottom: 1px solid #eee;
+  flex-shrink: 0;
+}
+.search-row {
+  display: flex; align-items: center;
+  border-bottom: 1.5px solid #ccc;
+  padding-bottom: 10px; gap: 10px;
+}
+.search-row input {
+  flex: 1; border: none; outline: none;
+  font-size: 16px; font-family: 'Georgia', serif;
+  color: #111; background: transparent;
+}
+.search-row input::placeholder { color: #bbb; }
+.search-icon-btn { font-size: 18px; color: #555; cursor: pointer; flex-shrink: 0; }
+ 
+/* Filter chips */
+.filter-chips {
+  display: flex; gap: 6px; flex-wrap: wrap; padding-top: 12px;
+}
+.chip {
+  font-family: 'Courier New', monospace; font-size: 9px;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 20px;
+  border: 1px solid #ddd; color: #888; cursor: pointer;
+  transition: all .15s;
+}
+.chip:hover, .chip.active { background: #111; color: #fff; border-color: #111; }
+.chip.active-green { background: #2d5a3d; color: #fff; border-color: #2d5a3d; }
+ 
+/* Artist list */
+.artist-list {
+  overflow-y: auto; flex: 1;
+  padding: 0;
+}
+.artist-list::-webkit-scrollbar { width: 4px; }
+.artist-list::-webkit-scrollbar-track { background: #f8f8f8; }
+.artist-list::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+ 
+/* Letter group header */
+.letter-group-header {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: #e0e0e0; color: #555;
+  font-size: 16px; font-weight: bold; font-family: 'Courier New', monospace;
+  margin: 14px 24px 6px;
+  flex-shrink: 0;
+}
+ 
+/* Artist row */
+.artist-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 24px; cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: background .12s, border-color .12s;
+}
+.artist-row:hover { background: #f8f8f8; border-left-color: #2d5a3d; }
+.artist-row.active { background: #f0f6f2; border-left-color: #2d5a3d; }
+.artist-thumb {
+  width: 54px; height: 54px; border-radius: 50%;
+  background: #e0e0dc; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Courier New', monospace; font-size: 12px;
+  color: #aaa; overflow: hidden; border: 2px solid #f0f0ee;
+  font-weight: bold;
+}
+.artist-row-name { font-size: 15px; font-weight: bold; color: #111; line-height: 1.2; }
+.artist-row-meta { font-size: 11px; color: #999; font-family: 'Courier New', monospace; margin-top: 2px; }
+ 
+/* ── RIGHT COLUMN ── */
+.right-col {
+  padding: 36px 52px;
+  overflow-y: auto;
+  max-height: calc(100vh - 92px);
+}
+.right-col::-webkit-scrollbar { width: 4px; }
+.right-col::-webkit-scrollbar-track { background: #f8f8f8; }
+.right-col::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+ 
+/* Default: manifesto text */
+.manifesto {
+  font-size: 18px; line-height: 1.9; color: #222;
+}
+.manifesto p { margin-bottom: 24px; }
+.manifesto p:last-child { margin-bottom: 0; }
+ 
+/* ══════════════════════════════════
+   ARTIST DETAIL PANEL (right col)
+══════════════════════════════════ */
+.artist-detail { display: none; }
+.artist-detail.visible { display: block; }
+.manifesto-panel { display: block; }
+.manifesto-panel.hidden { display: none; }
+ 
+.detail-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'Courier New', monospace; font-size: 10px;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: #888; cursor: pointer; margin-bottom: 28px;
+  padding: 6px 12px; border: 1px solid #ddd; border-radius: 2px;
+  transition: all .15s;
+}
+.detail-back:hover { background: #111; color: #fff; border-color: #111; }
+ 
+/* Hero */
+.detail-hero {
+  display: grid; grid-template-columns: 220px 1fr;
+  gap: 32px; margin-bottom: 32px;
+  padding-bottom: 28px; border-bottom: 1px solid #eee;
+}
+.detail-photo {
+  width: 100%; aspect-ratio: 3/4;
+  background: #e8e8e4; display: flex;
+  align-items: center; justify-content: center;
+  font-family: 'Courier New', monospace; font-size: 10px;
+  color: #bbb; text-align: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+}
+.detail-photo.has-initials {
+  font-size: 36px; font-weight: bold; color: #ccc; background: #f0f0ee;
+}
+.detail-info { display: flex; flex-direction: column; gap: 0; }
+.detail-name { font-size: 30px; font-weight: normal; margin-bottom: 6px; letter-spacing: -.01em; }
+.detail-meta { font-family: 'Courier New', monospace; font-size: 10px; color: #aaa; letter-spacing: .06em; margin-bottom: 18px; }
+.follow-row { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.follow-btn {
+  background: #111; color: #fff;
+  font-family: 'Courier New', monospace; font-size: 10px;
+  padding: 9px 22px; border-radius: 2px;
+  letter-spacing: .1em; text-transform: uppercase;
+  cursor: pointer; border: none; transition: background .15s;
+}
+.follow-btn:hover { background: #2d5a3d; }
+.follow-btn.following { background: transparent; color: #2d5a3d; border: 1px solid #2d5a3d; }
+.follow-count { font-family: 'Courier New', monospace; font-size: 12px; color: #aaa; }
+.detail-bio { font-size: 14px; line-height: 1.85; color: #444; }
+.detail-bio p { margin-bottom: 14px; }
+.detail-bio p:last-child { margin-bottom: 0; }
+ 
+/* Stats row */
+.detail-stats {
+  display: flex; gap: 2px; margin-bottom: 28px;
+}
+.dstat {
+  flex: 1; background: #f8f8f6; border: 1px solid #eee;
+  padding: 14px 16px; text-align: center;
+}
+.dstat-num { font-size: 22px; font-weight: bold; color: #2d5a3d; margin-bottom: 3px; }
+.dstat-label { font-family: 'Courier New', monospace; font-size: 9px; color: #aaa; letter-spacing: .08em; text-transform: uppercase; }
+ 
+/* Tabs */
+.detail-tabs { display: flex; border-bottom: 2px solid #eee; margin-bottom: 24px; }
+.dtab {
+  font-family: 'Courier New', monospace; font-size: 10px;
+  letter-spacing: .10em; text-transform: uppercase; color: #888;
+  padding: 12px 20px; cursor: pointer;
+  border-bottom: 2px solid transparent; margin-bottom: -2px;
+  transition: all .15s;
+}
+.dtab.active { color: #111; border-bottom-color: #2d5a3d; }
+.dtab-pane { display: none; }
+.dtab-pane.active { display: block; }
+ 
+/* Artworks grid */
+.artworks-empty {
+  text-align: center; padding: 40px 20px;
+  border: 1px dashed #ddd; background: #fafaf8;
+}
+.artworks-empty p { font-size: 13px; color: #bbb; margin-bottom: 6px; }
+.artworks-empty small { font-family: 'Courier New', monospace; font-size: 9px; color: #ddd; letter-spacing: .08em; }
+ 
+/* About tab */
+.about-grid { display: grid; grid-template-columns: 1fr 200px; gap: 24px; }
+.about-bio-full { font-size: 13px; line-height: 1.85; color: #444; }
+.about-bio-full p { margin-bottom: 14px; }
+.about-sidebar { }
+.about-sidebar h4 { font-family: 'Courier New', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: #999; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
+.about-row { display: flex; flex-direction: column; padding: 7px 0; border-bottom: 1px solid #f0f0ee; }
+.about-row:last-child { border-bottom: none; }
+.about-row-label { font-family: 'Courier New', monospace; font-size: 9px; color: #aaa; letter-spacing: .06em; margin-bottom: 2px; }
+.about-row-val { font-size: 12px; color: #333; }
+ 
+/* IPO banner */
+.ipo-banner {
+  background: #f0f6f2; border: 1px solid #b6d9c4;
+  border-left: 4px solid #2d5a3d;
+  padding: 14px 18px; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 16px;
+}
+.ipo-label { font-family: 'Courier New', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: #2d5a3d; min-width: 80px; }
+.ipo-bar { flex: 1; height: 5px; background: #d6ead0; border-radius: 3px; overflow: hidden; }
+.ipo-fill { height: 100%; background: #2d5a3d; border-radius: 3px; }
+.ipo-score { font-family: 'Courier New', monospace; font-size: 13px; color: #2d5a3d; font-weight: bold; min-width: 60px; text-align: right; }
+ 
+/* ── SITE FOOTER ── */
+.site-footer {
+  background: #111; color: #555;
+  padding: 24px 40px;
+  font-family: 'Courier New', monospace; font-size: 10px;
+  border-top: 2px solid #2d5a3d;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
+.site-footer-logo { color: #fff; font-size: 12px; letter-spacing: .14em; }
+.site-footer-links { display: flex; gap: 16px; }
+.site-footer-link { color: #555; cursor: pointer; }
+.site-footer-link:hover { color: #aaa; }
+</style>
+</head>
+<body>
+ 
+<!-- Wireframe meta bar -->
+<div class="hub-bar">
+  <div class="hub-bar-left">⊞ Sycomore · Design System · <strong>Artists Page Wireframe</strong> · artist-profile/index.html</div>
+  <div class="hub-bar-right">
+    <span class="wf-badge">v1.0 · Draft</span>
+    <span style="font-family:'Courier New',monospace;font-size:10px;color:#666;">March 2026</span>
+  </div>
+</div>
+ 
+<!-- SITE NAV -->
+<div class="site-nav">
+  <div class="nav-logo">
+    <div style="display:flex;align-items:flex-end;gap:8px;">
+      <div style="width:44px;height:44px;background:#111;display:flex;align-items:center;justify-content:center;border-radius:2px;">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="13" y="16" width="6" height="14" fill="#fff"/>
+          <rect x="4" y="8" width="24" height="3" fill="#fff"/>
+          <rect x="8" y="4" width="3" height="7" fill="#fff"/>
+          <rect x="21" y="4" width="3" height="7" fill="#fff"/>
+          <rect x="4" y="3" width="3" height="3" fill="#fff"/>
+          <rect x="25" y="3" width="3" height="3" fill="#fff"/>
+        </svg>
+      </div>
+      <div>
+        <div class="nav-logo-text">SYCOMORE®</div>
+        <div class="nav-logo-sub">Art Fixing the World</div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-icons">
+    <div class="nav-icon-btn">
+      🛒
+      <span class="cart-badge">0</span>
+    </div>
+    <div class="nav-icon-btn">🔍</div>
+    <div class="nav-icon-btn">☰</div>
+  </div>
+</div>
+ 
+<!-- PAGE TITLE -->
+<div class="page-title-bar">
+  <h1>Artist</h1>
+</div>
+ 
+<!-- MAIN TWO-COLUMN LAYOUT -->
+<div class="main-layout">
+ 
+  <!-- LEFT SIDEBAR -->
+  <div class="left-col">
+ 
+    <!-- Search -->
+    <div class="search-area">
+      <div class="search-row">
+        <input type="text" id="searchInput" placeholder="Search Artist" oninput="filterArtists(this.value)" />
+        <div class="search-icon-btn">🔍</div>
+      </div>
+      <!-- Filter chips -->
+      <div class="filter-chips">
+        <div class="chip active-green" onclick="filterByMedium(this,'all')">All</div>
+        <div class="chip" onclick="filterByMedium(this,'painting')">Painting</div>
+        <div class="chip" onclick="filterByMedium(this,'sculpture')">Sculpture</div>
+        <div class="chip" onclick="filterByMedium(this,'illustration')">Illustration</div>
+        <div class="chip" onclick="filterByMedium(this,'mixed')">Mixed Media</div>
+        <div class="chip" onclick="filterByMedium(this,'photography')">Photography</div>
+      </div>
+    </div>
+ 
+    <!-- Artist list -->
+    <div class="artist-list" id="artistList"></div>
+  </div>
+ 
+  <!-- RIGHT COLUMN -->
+  <div class="right-col" id="rightCol">
+ 
+    <!-- Manifesto (default state) -->
+    <div class="manifesto-panel" id="manifestoPanel">
+      <div class="manifesto">
+        <p>They are not just artists. They are visionaries, driven by a deep, unwavering commitment to create works that transcend the ordinary and resonate with the soul of the planet. Their art is not merely made — it is forged in the crucible of purpose, a declaration that beauty and innovation can solve the most pressing crises of our time.</p>
+        <p>Each creation is a powerful response to the challenges we face. These works are not just expressions — they are acts of defiance against a world in decline, designed to leave a legacy that will echo across generations. While they are compensated for their mastery, their true reward is the knowledge that their creations are actively shaping a better, more sustainable future.</p>
+        <p>The artists we seek are not chosen at random. They are the rare few — emerging, mid-career, and seasoned masters from every corner of the globe — whose work rises above the noise. They collaborate with scientists and Sycomore to create not just art, but a movement: a fusion of beauty and purpose that speaks to the deepest aspirations of humanity.</p>
+        <p>Their influence will reverberate through time. The legacy they craft will not fade; it will be immortalised. History will remember them as the vanguard of this generation — the architects of a future that could have been lost, but for their courage, their creativity, and their unwavering belief that art can save the world.</p>
+        <p>This is more than an opportunity. It is a call to stand at the intersection of creativity and action, to join a community of creators who are shaping the future with every brushstroke, every idea, every masterpiece. If you are ready to leave a mark that will last long after you are gone, to create art that matters on a scale greater than yourself, we want to hear from you.</p>
+        <p>To become part of this legacy as a Sycomore Artist, send your finest works to <span style="color:#2d5a3d;text-decoration:underline;cursor:pointer;">info@sycomo.re</span></p>
+      </div>
+    </div>
+ 
+    <!-- Artist detail panel (hidden by default) -->
+    <div class="artist-detail" id="artistDetail">
+ 
+      <div class="detail-back" onclick="showManifesto()">← Back to Artists</div>
+ 
+      <!-- IPO score -->
+      <div class="ipo-banner">
+        <div class="ipo-label">IPO™ Score</div>
+        <div class="ipo-bar"><div class="ipo-fill" id="ipoFill" style="width:74%"></div></div>
+        <div class="ipo-score" id="ipoScore">74 / 100</div>
+      </div>
+ 
+      <!-- Hero: photo + info -->
+      <div class="detail-hero">
+        <div class="detail-photo has-initials" id="detailPhoto">AQ</div>
+        <div class="detail-info">
+          <div class="detail-name" id="detailName">—</div>
+          <div class="detail-meta" id="detailMeta">—</div>
+          <div class="follow-row">
+            <button class="follow-btn" id="followBtn" onclick="toggleFollow(this)">Follow</button>
+            <span class="follow-count" id="followCount">0</span>
+          </div>
+          <div class="detail-bio" id="detailBio"></div>
+        </div>
+      </div>
+ 
+      <!-- Stats -->
+      <div class="detail-stats">
+        <div class="dstat"><div class="dstat-num" id="dstat1">—</div><div class="dstat-label">Artworks</div></div>
+        <div class="dstat"><div class="dstat-num" id="dstat2">—</div><div class="dstat-label">Years Active</div></div>
+        <div class="dstat"><div class="dstat-num" id="dstat3">—</div><div class="dstat-label">Causes</div></div>
+      </div>
+ 
+      <!-- Tabs -->
+      <div class="detail-tabs">
+        <div class="dtab active" onclick="switchTab(this,'artworks')">Artworks</div>
+        <div class="dtab" onclick="switchTab(this,'about')">About</div>
+      </div>
+ 
+      <!-- Artworks pane -->
+      <div class="dtab-pane active" id="pane-artworks">
+        <div class="artworks-empty">
+          <p>No artworks found.</p>
+          <small>ARTWORKS WILL APPEAR HERE WHEN ADDED VIA WORDPRESS</small>
+        </div>
+      </div>
+ 
+      <!-- About pane -->
+      <div class="dtab-pane" id="pane-about">
+        <div class="about-grid">
+          <div class="about-bio-full" id="aboutBioFull"></div>
+          <div class="about-sidebar">
+            <h4>Quick Facts</h4>
+            <div class="about-row"><div class="about-row-label">Medium</div><div class="about-row-val" id="factMedium">—</div></div>
+            <div class="about-row"><div class="about-row-label">Location</div><div class="about-row-val" id="factLocation">—</div></div>
+            <div class="about-row"><div class="about-row-label">Active Since</div><div class="about-row-val" id="factSince">—</div></div>
+            <div class="about-row"><div class="about-row-label">Cause</div><div class="about-row-val" id="factCause">—</div></div>
+          </div>
+        </div>
+      </div>
+ 
+    </div><!-- /artist-detail -->
+ 
+  </div><!-- /right-col -->
+</div><!-- /main-layout -->
+ 
+<!-- SITE FOOTER -->
+<div class="site-footer">
+  <div class="site-footer-logo">SYCOMORE®</div>
+  <div class="site-footer-links">
+    <div class="site-footer-link">Terms of Use</div>
+    <div class="site-footer-link">Shipping Conditions</div>
+    <div class="site-footer-link">Privacy Policy</div>
+    <div class="site-footer-link">Exchange &amp; Return</div>
+    <div class="site-footer-link">Track Your Order</div>
+    <div class="site-footer-link">Contact</div>
+  </div>
+  <div style="color:#444;">7 Bell Yard, The Strand, London · Co. No.12436937</div>
+</div>
+ 
+<script>
+// ── ARTIST DATA (real names from sycomore.org) ──
+const ARTISTS = [
+  { name:'Amanda Quellin',    initials:'AQ', medium:'Scenic Art', location:'United Kingdom', since:'1999', cause:'Charity · Wild in Art', ipo:82,
+    bio:"Amanda is a professional Scenic Artist with a career that has spanned over 25 years. She has worked both in the U.K. and internationally.\n\nHer client list includes the BBC, Film 4, Opera North, Granada Television, Alton Towers and many other theatres and entertainment venues.\n\nHer company also designed and produced one of the largest grossing dinosaur exhibitions for Manchester's Museum of Science and Industry.\n\nShe designed and produced the art work for La Tasca chain of 70 restaurants in the U.K. and USA and has exhibited at a number of venues including the Royal Academy in London.\n\nAmanda has a degree in Fine Art and Masters in Illustration for which she was awarded a distinction in 2021. She now concentrates on smaller scale projects in illustration, murals and public arts trails and is a regular artist for Wild in Art.\n\nThrough working with Wild in Art, she has completed over 60 sculpture projects raising money for a number of charities — including a throne-style bench for King Charles' coronation, exhibited at the Tower of London, and a cat sculpture for Coraline's Curious Cat trail sponsored by Laika Studios in Portland, USA.",
+    artworks:12, tag:'painting' },
+ 
+  { name:'Andrada Anastasia', initials:'AA', medium:'Painting', location:'Romania', since:'2015', cause:'Biodiversity', ipo:68,
+    bio:"Andrada Anastasia is a Romanian painter whose work explores the intersection of identity, landscape and memory.\n\nHer richly textured canvases draw on both Eastern European folk traditions and contemporary fine art practice, producing images that feel both timeless and urgently present.",
+    artworks:8, tag:'painting' },
+ 
+  { name:'Angelina Wixley',   initials:'AW', medium:'Mixed Media', location:'United Kingdom', since:'2010', cause:'Ocean Conservation', ipo:71,
+    bio:"Angelina Wixley is a multidisciplinary visual artist based in the United Kingdom. Her practice spans painting, print and public art installation, with a particular focus on the relationship between natural environments and human habitation.\n\nHer work has been exhibited in galleries and public spaces across England and Wales.",
+    artworks:5, tag:'mixed' },
+ 
+  { name:'Anna Akhvlediani',  initials:'AA', medium:'Illustration', location:'Georgia', since:'2018', cause:'Reforestation', ipo:63,
+    bio:"Anna Akhvlediani is a Georgian-born illustrator and painter whose work blends vivid colour with precise draughtsmanship.\n\nHer illustrations have appeared in international publications, and her paintings address ecological themes through a distinctly folkloric visual language rooted in the Caucasus region.",
+    artworks:14, tag:'illustration' },
+ 
+  { name:'Auji Azmi',         initials:'AZ', medium:'Mixed Media', location:'Malaysia', since:'2016', cause:'Biodiversity', ipo:74,
+    bio:"Auji Azmi is a Malaysian artist working in mixed media, photography and textile art.\n\nHer practice interrogates the intersection of traditional Malaysian craft and contemporary global environmental concerns, producing works that ask how local knowledge systems can address planetary crises.",
+    artworks:7, tag:'mixed' },
+ 
+  { name:'Ayza Ali',          initials:'AA', medium:'Digital Art', location:'United Kingdom', since:'2020', cause:'Social Equity', ipo:59,
+    bio:"Ayza Ali is a UK-based digital artist and illustrator whose bold, graphic style draws on South Asian visual traditions.\n\nShe works across editorial illustration, brand identity and fine art print, producing work that is at once decorative and politically engaged.",
+    artworks:9, tag:'illustration' },
+ 
+  { name:'Banu Kolak',        initials:'BK', medium:'Sculpture', location:'Turkey', since:'2008', cause:'Marine Conservation', ipo:79,
+    bio:"Banu Kolak is a Turkish sculptor and ceramicist whose large-scale works explore the fragility of ecosystems.\n\nShe has exhibited widely across Europe and her pieces are held in several public collections. Her studio practice involves extensive fieldwork in endangered coastal environments.",
+    artworks:6, tag:'sculpture' },
+ 
+  { name:'Basmah Omah',       initials:'BO', medium:'Painting', location:'Kuwait', since:'2012', cause:'Desert Ecology', ipo:65,
+    bio:"Basmah Omah is a Kuwaiti painter and printmaker whose work navigates questions of displacement, environmental loss and belonging through a palette rooted in the landscapes of the Arabian Gulf.\n\nHer paintings have been shown in the Gulf region, Europe and North America.",
+    artworks:11, tag:'painting' },
+ 
+  { name:'Benjamin Hudson',   initials:'BH', medium:'Photography', location:'United Kingdom', since:'2014', cause:'Biodiversity', ipo:77,
+    bio:"Benjamin Hudson is a British documentary photographer whose long-form projects chronicle threatened communities and ecosystems across the UK and West Africa.\n\nHis work combines lyrical visual storytelling with rigorous journalistic research, and has been published in international media.",
+    artworks:18, tag:'photography' },
+ 
+  { name:'Clare Thompson',    initials:'CT', medium:'Painting', location:'United Kingdom', since:'2005', cause:'Reforestation', ipo:80,
+    bio:"Clare Thompson is a UK-based painter working primarily in oil and watercolour.\n\nHer landscapes capture the shifting light and atmosphere of northern English moorland and coastline, combining traditional observational painting with a deep engagement with the ecology of her subject matter.",
+    artworks:22, tag:'painting' },
+ 
+  { name:'Courtenay Kusitor', initials:'CK', medium:'Illustration', location:'United Kingdom', since:'2017', cause:'Social Equity', ipo:66,
+    bio:"Courtenay Kusitor is a British-Ghanaian illustrator and muralist whose vibrant, narrative-driven work celebrates African diaspora culture and the natural world.\n\nHer public commissions can be found across London, and she has collaborated with cultural institutions including the Tate and the Barbican.",
+    artworks:4, tag:'illustration' },
+ 
+  { name:'Darren Arcanjo',    initials:'DA', medium:'Painting', location:'United Kingdom', since:'2013', cause:'Biodiversity', ipo:61,
+    bio:"Darren Arcanjo is a British painter whose vivid, large-format canvases explore the boundaries between abstraction and natural form. His work is deeply influenced by British landscape traditions and contemporary ecological science.",
+    artworks:3, tag:'painting' },
+ 
+  { name:'Helen Stanley',     initials:'HS', medium:'Mixed Media', location:'United Kingdom', since:'2009', cause:'Ocean Conservation', ipo:72,
+    bio:"Helen Stanley is a UK artist working across mixed media, textiles and public installation. Her practice draws on marine biology and ocean science to produce works that are both aesthetically striking and scientifically informed.",
+    artworks:7, tag:'mixed' },
+ 
+  { name:'Imrana Pervaiz',    initials:'IP', medium:'Illustration', location:'United Kingdom', since:'2019', cause:'Social Equity', ipo:58,
+    bio:"Imrana Pervaiz is a British-Pakistani illustrator whose detailed, intricate work draws on Islamic geometric pattern and South Asian miniature painting traditions.\n\nHer illustrations have been commissioned for publications, exhibitions and community murals.",
+    artworks:6, tag:'illustration' },
+ 
+  { name:'Joshua Dau',        initials:'JD', medium:'Mixed Media', location:'South Sudan', since:'2016', cause:'Social Equity', ipo:75,
+    bio:"Joshua Dau is a South Sudanese artist living and working in the UK whose practice spans painting, collage and public art.\n\nHis work addresses themes of migration, displacement and resilience, drawing on personal experience and archival research into the history of conflict and community in East Africa.",
+    artworks:9, tag:'mixed' },
+ 
+  { name:'Karen Matiazo',     initials:'KM', medium:'Painting', location:'United Kingdom', since:'2011', cause:'Reforestation', ipo:69,
+    bio:"Karen Matiazo is a British painter and printmaker who creates luminous, detail-rich works inspired by botanical illustration and the formal traditions of still life. Her practice is underpinned by a commitment to environmental advocacy.",
+    artworks:13, tag:'painting' },
+ 
+  { name:'Katherine Monk-Watts', initials:'KW', medium:'Sculpture', location:'United Kingdom', since:'2007', cause:'Marine Conservation', ipo:78,
+    bio:"Katherine Monk-Watts is a British sculptor whose practice explores the intersection of natural and man-made materials. Her large-scale outdoor installations respond to specific ecological sites and invite sustained attention to the processes of growth, decay and transformation.",
+    artworks:5, tag:'sculpture' },
+ 
+  { name:'Krystan Sharp Young', initials:'KY', medium:'Illustration', location:'United States', since:'2018', cause:'Biodiversity', ipo:64,
+    bio:"Krystan Sharp Young is an American illustrator and surface pattern designer whose work celebrates the visual richness of natural ecosystems. She collaborates with conservation organisations and product brands to bring ecological themes into everyday life.",
+    artworks:11, tag:'illustration' },
+ 
+  { name:'Libby Gallagher',   initials:'LG', medium:'Painting', location:'United Kingdom', since:'2006', cause:'Reforestation', ipo:76,
+    bio:"Libby Gallagher is a British landscape painter whose sweeping, atmospheric works document the changing face of the British countryside in an era of climate uncertainty. Her paintings have been exhibited across the UK and Europe.",
+    artworks:17, tag:'painting' },
+ 
+  { name:'Love Quetee',       initials:'LQ', medium:'Mixed Media', location:'Nigeria', since:'2015', cause:'Social Equity', ipo:70,
+    bio:"Love Quetee is a Nigerian artist working in painting, textile and installation. Her practice draws on Yoruba visual traditions to create works that speak simultaneously to local cultural heritage and global ecological emergency.",
+    artworks:8, tag:'mixed' },
+ 
+  { name:'Mari Ipliktsiadou', initials:'MI', medium:'Painting', location:'Greece', since:'2012', cause:'Marine Conservation', ipo:73,
+    bio:"Mari Ipliktsiadou is a Greek painter whose work is rooted in the visual culture of the Eastern Mediterranean. Her paintings explore the relationship between human communities and the sea, drawing on mythology, ecology and personal memory.",
+    artworks:10, tag:'painting' },
+ 
+  { name:'Maria Wronka',      initials:'MW', medium:'Illustration', location:'Poland', since:'2017', cause:'Biodiversity', ipo:67,
+    bio:"Maria Wronka is a Polish illustrator and book artist whose intricate pen-and-ink drawings explore the complexity and fragility of natural ecosystems. Her work has been featured in international publications and awarded at several European illustration prizes.",
+    artworks:14, tag:'illustration' },
+ 
+  { name:'Mopher Crook',      initials:'MC', medium:'Photography', location:'United Kingdom', since:'2010', cause:'Reforestation', ipo:71,
+    bio:"Mopher Crook is a British photographer whose long-exposure landscape photography captures the meditative quality of natural environments under threat. His work has been exhibited at festivals and galleries across the UK.",
+    artworks:6, tag:'photography' },
+ 
+  { name:'Nadine Senior',     initials:'NS', medium:'Painting', location:'United Kingdom', since:'2014', cause:'Social Equity', ipo:62,
+    bio:"Nadine Senior is a British painter whose vibrant figurative works explore themes of belonging, identity and the natural world. Her practice is informed by her heritage and her engagement with community arts projects across Northern England.",
+    artworks:9, tag:'painting' },
+ 
+  { name:'Parisa Bahri',      initials:'PB', medium:'Mixed Media', location:'Iran', since:'2013', cause:'Biodiversity', ipo:76,
+    bio:"Parisa Bahri is an Iranian artist working in painting, print and installation. Her practice draws on Persian visual traditions and contemporary ecological science to create works that address the fragility of natural and cultural heritage.",
+    artworks:12, tag:'mixed' },
+ 
+  { name:'Rafe Forman',       initials:'RF', medium:'Painting', location:'United Kingdom', since:'2016', cause:'Reforestation', ipo:68,
+    bio:"Rafe Forman is a British painter and printmaker whose work engages with the landscapes and communities of rural England. His self-portrait practice, which runs alongside his landscape work, examines the relationship between artistic identity and environmental engagement.",
+    artworks:7, tag:'painting' },
+ 
+  { name:'Rosie Marten',      initials:'RM', medium:'Painting', location:'United Kingdom', since:'2008', cause:'Marine Conservation', ipo:80,
+    bio:"Rosie Marten is a British painter whose luminous, large-scale canvases capture the light and atmosphere of coastal environments. Her practice is deeply informed by her relationship with the sea, and she donates a portion of each sale to marine conservation causes.",
+    artworks:19, tag:'painting' },
+ 
+  { name:'Sajida Asif',       initials:'SA', medium:'Mixed Media', location:'United Kingdom', since:'2015', cause:'Social Equity', ipo:65,
+    bio:"Sajida Asif is a textile artist and painter based in the UK whose intricate works draw on South Asian embroidery traditions to create pieces that reflect on ecological memory and cultural heritage. Her work bridges craft and fine art practice.",
+    artworks:5, tag:'mixed' },
+ 
+  { name:'Sam Linden',        initials:'SL', medium:'Painting', location:'United Kingdom', since:'2011', cause:'Reforestation', ipo:72,
+    bio:"Sam Linden is a British painter and printmaker whose atmospheric figurative works are informed by both classical technique and contemporary ecological concern. Her portraits of people in natural environments explore the reciprocal relationship between human beings and the landscapes they inhabit.",
+    artworks:8, tag:'painting' },
+ 
+  { name:'Sena Appeah',       initials:'SA', medium:'Mixed Media', location:'Ghana', since:'2016', cause:'Biodiversity', ipo:69,
+    bio:"Sena Appeah is a Ghanaian-British artist working in mixed media and collage. Her practice brings together found materials, photography and paint to explore identity, migration and the natural environment, producing works that are both autobiographical and politically engaged.",
+    artworks:11, tag:'mixed' },
+ 
+  { name:'Shreya Sharma',     initials:'SS', medium:'Illustration', location:'India', since:'2018', cause:'Biodiversity', ipo:67,
+    bio:"Shreya Sharma is an Indian illustrator and surface pattern designer whose work is rooted in the botanical illustration tradition and the ecological richness of the Indian subcontinent. She works across publishing, product design and fine art, bringing scientific accuracy and visual beauty together.",
+    artworks:9, tag:'illustration' },
+ 
+  { name:'Sofia Afonso',      initials:'SA', medium:'Painting', location:'Portugal', since:'2014', cause:'Marine Conservation', ipo:74,
+    bio:"Sofia Afonso is a Portuguese painter whose work draws on the maritime heritage and coastal ecology of her homeland. Her paintings balance lyrical abstraction with careful observation of the natural world.",
+    artworks:6, tag:'painting' },
+ 
+  { name:'Sofia Bruni',       initials:'SB', medium:'Sculpture', location:'Italy', since:'2009', cause:'Reforestation', ipo:77,
+    bio:"Sofia Bruni is an Italian sculptor working in ceramic and bronze. Her practice explores the formal qualities of natural forms — seeds, roots, bark — at a monumental scale, inviting viewers to reconsider their relationship to the living world.",
+    artworks:4, tag:'sculpture' },
+ 
+  { name:'Turhan Algan',      initials:'TA', medium:'Painting', location:'Turkey', since:'2013', cause:'Biodiversity', ipo:70,
+    bio:"Turhan Algan is a Turkish painter whose richly detailed canvases draw on the visual traditions of Ottoman miniature painting and Islamic geometric art. His work addresses the intersection of cultural heritage and ecological crisis.",
+    artworks:7, tag:'painting' },
+ 
+  { name:'Valentina Barbetta',initials:'VB', medium:'Mixed Media', location:'Italy', since:'2012', cause:'Social Equity', ipo:66,
+    bio:"Valentina Barbetta is an Italian artist working across painting, textile and performance. Her practice explores the intersection of domestic labour, craft and political activism, producing works that are simultaneously intimate and publicly engaged.",
+    artworks:5, tag:'mixed' },
+];
+ 
+// Avatar colours per initial
+const COLOURS = { A:'#d4cec8',B:'#c8d4d0',C:'#d4ccd4',D:'#c8d0d4',E:'#d0d4c8',F:'#ccd4d0',G:'#d4cac8',H:'#c8ccd4',I:'#d0c8d4',J:'#cad4cc',K:'#d4d0c8',L:'#c8d4ca',M:'#d0ccd4',N:'#d4c8cc',O:'#c8d4d4',P:'#d4ccc8',Q:'#d0d4cc',R:'#c8cad4',S:'#d4ccd0',T:'#ccd0d4',U:'#d4cac4',V:'#c8d4ce',W:'#d0c8d0',X:'#d4d4c8',Y:'#c8d4d4',Z:'#d4c8d4' };
+ 
+let currentFilter = 'all';
+let activeRow = null;
+ 
+function getColour(initials) {
+  return COLOURS[initials[0]] || '#e0e0dc';
+}
+ 
+function buildList(artists) {
+  const container = document.getElementById('artistList');
+  container.innerHTML = '';
+ 
+  // Group by first letter
+  const groups = {};
+  artists.forEach(a => {
+    const letter = a.name[0].toUpperCase();
+    if (!groups[letter]) groups[letter] = [];
+    groups[letter].push(a);
+  });
+ 
+  Object.keys(groups).sort().forEach(letter => {
+    // Letter header
+    const hdr = document.createElement('div');
+    hdr.className = 'letter-group-header';
+    hdr.textContent = letter;
+    container.appendChild(hdr);
+ 
+    groups[letter].forEach(artist => {
+      const row = document.createElement('div');
+      row.className = 'artist-row';
+      row.dataset.name = artist.name.toLowerCase();
+      row.dataset.tag = artist.tag;
+      row.innerHTML = `
+        <div class="artist-thumb" style="background:${getColour(artist.initials)};color:#777;">${artist.initials}</div>
+        <div>
+          <div class="artist-row-name">${artist.name}</div>
+          <div class="artist-row-meta">${artist.medium} · ${artist.location}</div>
+        </div>
+      `;
+      row.addEventListener('click', () => openArtist(artist, row));
+      container.appendChild(row);
+    });
+  });
+}
+ 
+function filterArtists(query) {
+  const q = query.toLowerCase();
+  const filtered = ARTISTS.filter(a => {
+    const matchName = a.name.toLowerCase().includes(q);
+    const matchTag = currentFilter === 'all' || a.tag === currentFilter;
+    return matchName && matchTag;
+  });
+  buildList(filtered);
+}
+ 
+function filterByMedium(el, tag) {
+  currentFilter = tag;
+  document.querySelectorAll('.chip').forEach(c => { c.classList.remove('active-green'); c.classList.remove('active'); });
+  el.classList.add('active-green');
+  filterArtists(document.getElementById('searchInput').value);
+}
+ 
+function openArtist(artist, rowEl) {
+  // Highlight row
+  if (activeRow) activeRow.classList.remove('active');
+  rowEl.classList.add('active');
+  activeRow = rowEl;
+ 
+  // Populate detail panel
+  document.getElementById('detailPhoto').textContent = artist.initials;
+  document.getElementById('detailPhoto').style.background = getColour(artist.initials);
+  document.getElementById('detailName').textContent = artist.name;
+  document.getElementById('detailMeta').textContent = artist.medium + ' · ' + artist.location;
+  document.getElementById('dstat1').textContent = artist.artworks;
+  document.getElementById('dstat2').textContent = (2026 - parseInt(artist.since));
+  document.getElementById('dstat3').textContent = '1';
+  document.getElementById('ipoFill').style.width = artist.ipo + '%';
+  document.getElementById('ipoScore').textContent = artist.ipo + ' / 100';
+ 
+  // Bio
+  const bioParagraphs = artist.bio.split('\n\n').map(p => `<p>${p}</p>`).join('');
+  document.getElementById('detailBio').innerHTML = bioParagraphs;
+  document.getElementById('aboutBioFull').innerHTML = bioParagraphs;
+ 
+  // Sidebar facts
+  document.getElementById('factMedium').textContent = artist.medium;
+  document.getElementById('factLocation').textContent = artist.location;
+  document.getElementById('factSince').textContent = artist.since;
+  document.getElementById('factCause').textContent = artist.cause;
+ 
+  // Reset follow button
+  const btn = document.getElementById('followBtn');
+  btn.textContent = 'Follow';
+  btn.classList.remove('following');
+  document.getElementById('followCount').textContent = Math.floor(Math.random() * 40);
+ 
+  // Reset tabs
+  switchTabById('artworks');
+ 
+  // Show detail, hide manifesto
+  document.getElementById('manifestoPanel').classList.add('hidden');
+  document.getElementById('artistDetail').classList.add('visible');
+ 
+  // Scroll right col to top
+  document.getElementById('rightCol').scrollTop = 0;
+}
+ 
+function showManifesto() {
+  document.getElementById('manifestoPanel').classList.remove('hidden');
+  document.getElementById('artistDetail').classList.remove('visible');
+  if (activeRow) { activeRow.classList.remove('active'); activeRow = null; }
+}
+ 
+function toggleFollow(btn) {
+  const isFollowing = btn.classList.contains('following');
+  const countEl = document.getElementById('followCount');
+  let c = parseInt(countEl.textContent) || 0;
+  if (isFollowing) {
+    btn.textContent = 'Follow';
+    btn.classList.remove('following');
+    countEl.textContent = Math.max(0, c - 1);
+  } else {
+    btn.textContent = 'Following ✓';
+    btn.classList.add('following');
+    countEl.textContent = c + 1;
+  }
+}
+ 
+function switchTab(el, paneId) {
+  document.querySelectorAll('.dtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.dtab-pane').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('pane-' + paneId).classList.add('active');
+}
+ 
+function switchTabById(paneId) {
+  document.querySelectorAll('.dtab').forEach((t,i) => {
+    t.classList.toggle('active', (i === 0 && paneId === 'artworks') || (i === 1 && paneId === 'about'));
+  });
+  document.querySelectorAll('.dtab-pane').forEach(p => p.classList.remove('active'));
+  const pane = document.getElementById('pane-' + paneId);
+  if (pane) pane.classList.add('active');
+}
+ 
+// Init
+buildList(ARTISTS);
+</script>
+</body>
+</html>
