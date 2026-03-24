@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact – Sycomore</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Georgia', serif; background: #fff; color: #111; }
+
+/* ── WIREFRAME META BAR ── */
+.hub-bar {
+  background: #111; padding: 9px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 2px solid #333;
+}
+.hub-bar span { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: .10em; text-transform: uppercase; color: #666; }
+.hub-bar strong { color: #ccc; }
+.wf-badge { background: #2a2a2a; color: #999; font-family: 'Courier New', monospace; font-size: 9px; letter-spacing: .1em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+
+/* ══════════════════════════════
+   HEADER — exact sycomore.org
+══════════════════════════════ */
+.site-header {
+  background: #fff;
+  padding: 18px 28px 14px;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  border-bottom: 1px solid #e8e8e8;
+  position: sticky; top: 0; z-index: 100;
+}
+
+/* Logo: tree icon + SYCOMORE® + ART FIXING THE WORLD */
+.logo-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; cursor: pointer; }
+.logo-icon { width: 72px; height: 72px; }
+.logo-name {
+  font-family: 'Georgia', serif;
+  font-size: 18px; font-weight: bold;
+  letter-spacing: .16em; color: #111; line-height: 1;
+}
+.logo-name sup { font-size: 10px; letter-spacing: 0; }
+.logo-sub {
+  font-family: 'Georgia', serif;
+  font-size: 10px; letter-spacing: .18em;
+  color: #111; text-transform: uppercase; line-height: 1;
+}
+
+/* Right icons */
+.header-icons { display: flex; align-items: center; gap: 22px; padding-top: 6px; }
+.hicon { position: relative; cursor: pointer; }
+.hicon svg { display: block; }
+.cart-badge {
+  position: absolute; top: -7px; right: -9px;
+  background: #e04040; color: #fff;
+  font-size: 9px; width: 16px; height: 16px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Courier New', monospace;
+}
+
+/* ══════════════════════════════
+   PAGE HERO
+══════════════════════════════ */
+.page-hero {
+  text-align: center;
+  padding: 44px 40px 36px;
+}
+.page-hero h1 {
+  font-size: 52px; font-weight: 700;
+  color: #111; letter-spacing: -.02em;
+}
+
+/* ══════════════════════════════
+   GOOGLE MAP
+══════════════════════════════ */
+.map-container {
+  width: 100%;
+  height: 380px;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+  overflow: hidden;
+}
+.map-container iframe {
+  width: 100%; height: 100%; border: none; display: block;
+}
+
+/* ══════════════════════════════
+   CONTACT SECTION
+══════════════════════════════ */
+.contact-section {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0;
+  padding: 56px 48px 72px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Left — address + socials */
+.contact-left { padding-right: 60px; padding-top: 8px; }
+.contact-heading {
+  font-size: 22px; font-weight: bold;
+  color: #111; margin-bottom: 22px; line-height: 1.2;
+}
+.contact-address {
+  font-size: 17px; color: #111; line-height: 1.6; margin-bottom: 36px;
+}
+
+/* Social icons — exact match: FB, X, IG, LI, Pinterest */
+.social-icons { display: flex; gap: 14px; align-items: center; }
+.social-icon {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: transform .15s; flex-shrink: 0;
+}
+.social-icon:hover { transform: scale(1.08); }
+.si-fb   { background: #1877F2; }
+.si-x    { background: #000; }
+.si-ig   { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+.si-li   { background: #0A66C2; }
+.si-pin  { background: #E60023; }
+
+/* Contact form */
+.contact-right {}
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.form-input {
+  width: 100%;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
+  padding: 16px 18px;
+  font-family: 'Georgia', serif;
+  font-size: 15px; color: #111; background: #fff;
+  outline: none; transition: border-color .15s;
+}
+.form-input:focus { border-color: #666; }
+.form-input::placeholder { color: #aaa; }
+.form-textarea {
+  width: 100%;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
+  padding: 16px 18px;
+  font-family: 'Georgia', serif;
+  font-size: 15px; color: #111; background: #fff;
+  outline: none; resize: vertical; min-height: 220px;
+  display: block; margin-bottom: 20px;
+  transition: border-color .15s;
+}
+.form-textarea:focus { border-color: #666; }
+.form-textarea::placeholder { color: #aaa; }
+.form-send-btn {
+  background: #2a2a2a; color: #fff;
+  font-family: 'Georgia', serif; font-size: 16px;
+  padding: 14px 52px; border: none; border-radius: 4px;
+  cursor: pointer; letter-spacing: .04em;
+  transition: background .15s;
+}
+.form-send-btn:hover { background: #000; }
+
+/* ══════════════════════════════
+   FOOTER — exact sycomore.org dark footer
+   (screenshot 3)
+══════════════════════════════ */
+.site-footer {
+  background: #2e2e2e;
+  padding: 48px 48px 36px;
+}
+
+/* Newsletter row */
+.footer-newsletter {
+  padding-bottom: 36px;
+  border-bottom: 1px solid #444;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Email subscribe */
+.nl-email-row {
+  display: flex; align-items: center; gap: 0;
+  border-bottom: 1.5px solid #888;
+  padding-bottom: 10px; margin-bottom: 20px;
+  max-width: 360px;
+}
+.nl-email-input {
+  flex: 1; background: transparent; border: none; outline: none;
+  font-family: 'Georgia', serif; font-size: 15px; color: #ccc;
+}
+.nl-email-input::placeholder { color: #888; }
+.nl-arrow {
+  background: transparent; border: none;
+  cursor: pointer; color: #ccc; font-size: 20px; padding: 0 4px;
+  transition: color .15s;
+}
+.nl-arrow:hover { color: #fff; }
+.nl-text { font-family: 'Georgia', serif; font-size: 14px; color: #ccc; line-height: 1.8; }
+.nl-text p { margin-bottom: 2px; }
+
+/* Footer logo — right side */
+.footer-logo-right {
+  display: flex; align-items: center; justify-content: flex-end; gap: 20px;
+}
+.footer-tree-icon { width: 120px; height: 120px; }
+.footer-brand { display: flex; flex-direction: column; gap: 4px; }
+.footer-brand-name {
+  font-family: 'Georgia', serif;
+  font-size: 32px; font-weight: bold;
+  letter-spacing: .14em; color: #fff; line-height: 1;
+}
+.footer-brand-name sup { font-size: 14px; letter-spacing: 0; }
+.footer-brand-sub {
+  font-family: 'Georgia', serif;
+  font-size: 11px; letter-spacing: .22em;
+  color: #aaa; text-transform: uppercase;
+}
+
+/* Bottom row */
+.footer-bottom {
+  margin-top: 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 14px;
+}
+.footer-addr {
+  font-family: 'Georgia', serif; font-size: 13px; color: #888;
+}
+.footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
+.footer-link {
+  font-family: 'Georgia', serif; font-size: 13px; color: #aaa;
+  cursor: pointer; transition: color .14s; white-space: nowrap;
+}
+.footer-link:hover { color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- Wireframe meta -->
+<div class="hub-bar">
+  <span>⊞ Sycomore · Design System · <strong>Contact Page Wireframe</strong> · contact/index.html</span>
+  <span class="wf-badge">v1.0 · Draft · March 2026</span>
+</div>
+
+<!-- ══════════════════════════════
+     EXACT SYCOMORE HEADER
+══════════════════════════════ -->
+<div class="site-header">
+  <!-- Sycomore tree logo — SVG recreation of the real logo -->
+  <div class="logo-wrap">
+    <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Tree trunk -->
+      <rect x="46" y="60" width="8" height="32" fill="#111"/>
+      <!-- Main branches horizontal -->
+      <rect x="18" y="34" width="64" height="6" fill="#111"/>
+      <!-- Left branch up -->
+      <rect x="18" y="18" width="6" height="22" fill="#111"/>
+      <!-- Right branch up -->
+      <rect x="76" y="18" width="6" height="22" fill="#111"/>
+      <!-- Top monitors row -->
+      <rect x="6"  y="6"  width="14" height="14" rx="1" fill="#111"/>
+      <rect x="26" y="6"  width="14" height="14" rx="1" fill="#111"/>
+      <rect x="60" y="6"  width="14" height="14" rx="1" fill="#111"/>
+      <rect x="80" y="6"  width="14" height="14" rx="1" fill="#111"/>
+      <!-- Small screens on branches -->
+      <rect x="12" y="38" width="10" height="8" rx="1" fill="#111"/>
+      <rect x="78" y="38" width="10" height="8" rx="1" fill="#111"/>
+      <!-- Centre top screen -->
+      <rect x="43" y="10" width="14" height="10" rx="1" fill="#111"/>
+    </svg>
+    <div class="logo-name">SYCOMORE<sup>®</sup></div>
+    <div class="logo-sub">Art Fixing the World</div>
+  </div>
+
+  <!-- Nav icons right -->
+  <div class="header-icons">
+    <!-- Cart -->
+    <div class="hicon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9"  cy="21" r="1"/>
+        <circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+      </svg>
+      <span class="cart-badge">0</span>
+    </div>
+    <!-- Search -->
+    <div class="hicon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+    </div>
+    <!-- Hamburger -->
+    <div class="hicon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round">
+        <line x1="3" y1="6"  x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE TITLE -->
+<div class="page-hero">
+  <h1>Get in touch</h1>
+</div>
+
+<!-- GOOGLE MAP — 7 Bell Yard, London -->
+<div class="map-container">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.9560063093!2d-0.11359732355357!3d51.51368507181753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604b69b2b78eb%3A0xcd1bf3c2e39c897c!2s7%20Bell%20Yard%2C%20London%20WC2A%202JR!5e0!3m2!1sen!2suk!4v1710000000000!5m2!1sen!2suk"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+<!-- CONTACT SECTION -->
+<div class="contact-section">
+
+  <!-- LEFT: address + socials -->
+  <div class="contact-left">
+    <div class="contact-heading">We are here for you</div>
+    <div class="contact-address">
+      7 Bell Yard, The Strand, London.<br>
+      England. UK Co. No.12436937
+    </div>
+    <!-- Social icons: FB, X, Instagram, LinkedIn, Pinterest -->
+    <div class="social-icons">
+      <!-- Facebook -->
+      <div class="social-icon si-fb" title="Facebook">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+      </div>
+      <!-- X (Twitter) -->
+      <div class="social-icon si-x" title="X">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </div>
+      <!-- Instagram -->
+      <div class="social-icon si-ig" title="Instagram">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+      </div>
+      <!-- LinkedIn -->
+      <div class="social-icon si-li" title="LinkedIn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+          <rect x="2" y="9" width="4" height="12"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+      </div>
+      <!-- Pinterest -->
+      <div class="social-icon si-pin" title="Pinterest">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff">
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 4.236 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.181-.78 1.172-4.97 1.172-4.97s-.299-.598-.299-1.482c0-1.388.806-2.428 1.808-2.428.852 0 1.265.64 1.265 1.408 0 .858-.546 2.14-.828 3.33-.236.995.499 1.806 1.476 1.806 1.771 0 3.135-1.867 3.135-4.561 0-2.385-1.715-4.052-4.163-4.052-2.837 0-4.5 2.127-4.5 4.326 0 .856.33 1.775.741 2.276a.3.3 0 0 1 .069.285c-.076.315-.244.995-.277 1.134-.044.181-.145.219-.335.132-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.966-.527-2.292-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Contact form -->
+  <div class="contact-right">
+    <div class="form-row-2">
+      <input class="form-input" type="text"  placeholder="Name"/>
+      <input class="form-input" type="email" placeholder="Email"/>
+    </div>
+    <input class="form-input" type="tel" placeholder="Phone number" style="margin-bottom:14px;"/>
+    <textarea class="form-textarea" placeholder="Message"></textarea>
+    <button class="form-send-btn">Send</button>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════
+     EXACT SYCOMORE DARK FOOTER
+     (matches screenshot 3 precisely)
+══════════════════════════════ -->
+<div class="site-footer">
+
+  <div class="footer-newsletter">
+
+    <!-- Left: email subscribe + text -->
+    <div>
+      <div class="nl-email-row">
+        <input class="nl-email-input" type="email" placeholder="Enter your email"/>
+        <button class="nl-arrow">→</button>
+      </div>
+      <div class="nl-text">
+        <p>Subscribe to our newsletter.</p>
+        <p>Be the first to hear about new causes/collections, art pieces and more.</p>
+        <p>By subscribing you agree to our privacy policy</p>
+      </div>
+    </div>
+
+    <!-- Right: Sycomore logo in white -->
+    <div class="footer-logo-right">
+      <!-- Tree icon white version -->
+      <svg class="footer-tree-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="46" y="60" width="8" height="32" fill="#fff"/>
+        <rect x="18" y="34" width="64" height="6" fill="#fff"/>
+        <rect x="18" y="18" width="6" height="22" fill="#fff"/>
+        <rect x="76" y="18" width="6" height="22" fill="#fff"/>
+        <rect x="6"  y="6"  width="14" height="14" rx="1" fill="#fff"/>
+        <rect x="26" y="6"  width="14" height="14" rx="1" fill="#fff"/>
+        <rect x="60" y="6"  width="14" height="14" rx="1" fill="#fff"/>
+        <rect x="80" y="6"  width="14" height="14" rx="1" fill="#fff"/>
+        <rect x="12" y="38" width="10" height="8" rx="1" fill="#fff"/>
+        <rect x="78" y="38" width="10" height="8" rx="1" fill="#fff"/>
+        <rect x="43" y="10" width="14" height="10" rx="1" fill="#fff"/>
+      </svg>
+      <div class="footer-brand">
+        <div class="footer-brand-name">SYCOMORE<sup>®</sup></div>
+        <div class="footer-brand-sub">Art Fixing the World</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom: address left, links right -->
+  <div class="footer-bottom">
+    <div class="footer-addr">7 Bell Yard, The Strand, London. England. UK Co. No.12436937</div>
+    <div class="footer-links">
+      <div class="footer-link">Terms of Use</div>
+      <div class="footer-link">Shipping Conditions</div>
+      <div class="footer-link">Privacy Policy</div>
+      <div class="footer-link">Exchange and Return Policy</div>
+      <div class="footer-link">Track Your Order</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
