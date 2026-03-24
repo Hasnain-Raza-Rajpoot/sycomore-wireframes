@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sycomore — About Wireframe</title>
+    <style>
+      /* ══ RESET ══ */
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: "Georgia", serif;
+        background: #f4f4f2;
+        color: #111;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      /* ══ VARIABLES ══ */
+      :root {
+        --border: #c8c8c4;
+        --box: #ddddd8;
+        --box-dark: #c8c8c4;
+        --label: #666;
+        --accent: #111;
+        --white: #fff;
+        --light: #f4f4f2;
+        --green: #4a7c59;
+        --green-light: #e8f0eb;
+        --cause-tag: #2d5a3d;
+      }
+
+      /* ══ WF ANNOTATION ══ */
+      .wf-badge {
+        display: inline-block;
+        background: #2d5a3d;
+        color: #fff;
+        font-family: "Courier New", monospace;
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        padding: 2px 7px;
+        border-radius: 2px;
+        text-transform: uppercase;
+        flex-shrink: 0;
+        margin-right: 5px;
+      }
+      .wf-label {
+        font-family: "Courier New", monospace;
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #999;
+        border: 1px dashed #ccc;
+        padding: 2px 6px;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+
+      /* ══════════════════════════
+         1. TOP NAV — identical to homepage
+      ══════════════════════════ */
+      .nav-wrap {
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav {
+        max-width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        height: 58px;
+        gap: 0;
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        margin-right: 32px;
+      }
+      .nav-logo-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--box);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        color: var(--label);
+        font-family: "Courier New", monospace;
+      }
+      .nav-logo-text {
+        font-family: "Georgia", serif;
+        font-size: 15px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        flex: 1;
+        flex-wrap: nowrap;
+        overflow: hidden;
+      }
+      .nav-links a {
+        color: #222;
+        text-decoration: none;
+        font-size: 12px;
+        padding: 0 10px;
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+      }
+      .nav-links a:hover { text-decoration: underline; }
+      .nav-links a.active { font-weight: bold; text-decoration: underline; }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+        margin-left: 16px;
+      }
+      .nav-icon {
+        width: 32px;
+        height: 32px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .cart-count {
+        position: absolute;
+        top: 2px; right: 2px;
+        background: #c44;
+        color: #fff;
+        font-size: 8px;
+        width: 14px; height: 14px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Courier New", monospace;
+      }
+
+      /* ══════════════════════════
+         2. PAGE HERO — Mission
+         White bg, centered, matches screenshot 1
+      ══════════════════════════ */
+      .about-hero {
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+        padding: 72px 24px 64px;
+        text-align: center;
+      }
+      .about-hero h1 {
+        font-size: 34px;
+        font-weight: bold;
+        letter-spacing: -0.01em;
+        margin-bottom: 28px;
+        color: #111;
+      }
+      .about-hero h2 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #111;
+      }
+      .mission-block {
+        max-width: 640px;
+        margin: 0 auto 36px;
+      }
+      .mission-block p {
+        font-size: 15px;
+        line-height: 1.8;
+        color: #333;
+        margin-bottom: 12px;
+      }
+      .hero-artwork-placeholder {
+        max-width: 480px;
+        margin: 0 auto;
+        background: var(--box);
+        border: 1px solid var(--border);
+        height: 340px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Courier New", monospace;
+        font-size: 10px;
+        color: var(--label);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 16px;
+        border-radius: 6px;
+      }
+
+      /* ══════════════════════════
+         SHARED SECTION WRAPPER
+      ══════════════════════════ */
+      .section {
+        padding: 48px 0 40px;
+        border-bottom: 1px solid #e0e0dc;
+        background: #fff;
+      }
+      .section.alt-bg { background: #f4f4f2; }
+      .section-inner {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+      .section-title-center {
+        font-size: 26px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 36px;
+        letter-spacing: -0.01em;
+      }
+
+      /* ══════════════════════════
+         3. HOW IT WORKS
+         6 steps + central tree image, matches screenshot 2
+      ══════════════════════════ */
+      .how-grid {
+        display: grid;
+        grid-template-columns: 1fr 180px 1fr;
+        gap: 0 40px;
+        align-items: center;
+      }
+      .how-steps-col {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      .how-step-num {
+        font-size: 22px;
+        font-weight: bold;
+        color: #111;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+      .how-step-text {
+        font-size: 14px;
+        color: #333;
+        line-height: 1.55;
+      }
+      .how-center-col {
+        display: flex;
+        justify-content: center;
+      }
+      .how-tree-placeholder {
+        width: 160px;
+        height: 200px;
+        background: var(--box);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Courier New", monospace;
+        font-size: 9px;
+        color: var(--label);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 10px;
+      }
+
+      /* ══════════════════════════
+         4. WHY SYCOMORE + WHO WE SERVE
+         Matches screenshot 3
+      ══════════════════════════ */
+      .pillar-block {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .pillar-block h3 {
+        font-size: 15px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #111;
+      }
+      .pillar-block p {
+        font-size: 14px;
+        color: #444;
+        line-height: 1.65;
+        max-width: 560px;
+        margin: 0 auto;
+      }
+      /* Thick black divider (as per screenshot 3) */
+      .thick-divider {
+        width: 100%;
+        height: 3px;
+        background: #111;
+        margin: 36px 0;
+      }
+      .who-serve-title {
+        font-size: 26px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      .who-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+        text-align: center;
+      }
+      .who-card h3 {
+        font-size: 15px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #111;
+      }
+      .who-card p {
+        font-size: 13px;
+        color: #555;
+        line-height: 1.6;
+      }
+
+      /* ══════════════════════════
+         5. IPO CERTIFICATE SECTION
+         Matches screenshot 4
+      ══════════════════════════ */
+      .cert-section { text-align: center; }
+      .cert-box {
+        border: 2px solid #111;
+        max-width: 480px;
+        margin: 0 auto 36px;
+        padding: 36px 40px;
+        background: #fff;
+      }
+      .cert-logo-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+      .cert-tree-icon {
+        width: 44px;
+        height: 56px;
+        background: var(--box);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        font-family: "Courier New", monospace;
+        color: var(--label);
+        text-align: center;
+        padding: 4px;
+      }
+      .cert-brand { text-align: left; }
+      .cert-brand-name {
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .cert-brand-sub {
+        font-size: 9px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #555;
+        font-family: "Courier New", monospace;
+      }
+      .cert-heading {
+        font-size: 13px;
+        font-weight: bold;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+        border-top: 1px solid #ddd;
+        padding-top: 16px;
+      }
+      .cert-field-label {
+        font-size: 13px;
+        font-weight: bold;
+        text-align: left;
+        margin-bottom: 4px;
+      }
+      .cert-collection-value {
+        font-size: 13px;
+        color: #333;
+        font-style: italic;
+        margin-bottom: 20px;
+        text-align: left;
+      }
+      .cert-ipo-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border: 1.5px solid #111;
+        padding: 8px 22px;
+        border-radius: 24px;
+        margin-bottom: 20px;
+      }
+      .cert-ipo-symbol {
+        width: 22px; height: 22px;
+        background: var(--box);
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: var(--label);
+      }
+      .cert-ipo-num {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .cert-owner-line {
+        font-size: 12px;
+        text-align: left;
+        margin-bottom: 6px;
+      }
+      .cert-fine-print {
+        font-size: 10px;
+        color: #777;
+        line-height: 1.6;
+        margin-top: 16px;
+        border-top: 1px solid #eee;
+        padding-top: 12px;
+        text-align: center;
+      }
+      .cert-body {
+        max-width: 600px;
+        margin: 0 auto;
+        font-size: 14px;
+        color: #333;
+        line-height: 1.8;
+        text-align: center;
+      }
+      .cert-body p { margin-bottom: 14px; }
+
+      /* ══════════════════════════
+         6. MANIFESTO SECTION
+         Matches screenshot 5
+      ══════════════════════════ */
+      .manifesto-section { text-align: center; }
+      .startup-note {
+        font-size: 14px;
+        color: #444;
+        line-height: 1.75;
+        max-width: 560px;
+        margin: 0 auto 24px;
+      }
+      .contact-cta-btn {
+        display: inline-block;
+        background: #111;
+        color: #fff;
+        font-family: "Georgia", serif;
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 14px 40px;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-bottom: 48px;
+        text-decoration: none;
+        border: none;
+      }
+      .contact-cta-btn:hover { background: #333; }
+      .manifesto-divider {
+        width: 100%;
+        height: 3px;
+        background: #111;
+        margin: 0 0 40px;
+      }
+      .manifesto-headline {
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 28px;
+        line-height: 1.3;
+      }
+      .manifesto-body {
+        max-width: 660px;
+        margin: 0 auto;
+        font-size: 14px;
+        color: #333;
+        line-height: 1.85;
+        text-align: center;
+      }
+      .manifesto-body p { margin-bottom: 18px; }
+
+      /* ══════════════════════════
+         7. NEWSLETTER — dark strip
+         Matches screenshot 6
+      ══════════════════════════ */
+      .newsletter-wrap {
+        background: #2a2a2a;
+        padding: 40px 32px 32px;
+      }
+      .newsletter-inner {
+        max-width: 860px;
+        margin: 0 auto;
+      }
+      .nl-input-row {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #777;
+        margin-bottom: 18px;
+        padding-bottom: 4px;
+      }
+      .nl-input-row input {
+        flex: 1;
+        background: none;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-family: "Georgia", serif;
+        font-size: 14px;
+        padding: 10px 0;
+      }
+      .nl-input-row input::placeholder { color: #777; }
+      .nl-arrow {
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        padding-left: 10px;
+      }
+      .nl-copy {
+        font-size: 13px;
+        color: #bbb;
+        line-height: 1.7;
+      }
+      .nl-copy p { margin-bottom: 4px; }
+      .nl-copy a { color: #bbb; text-decoration: underline; }
+
+      /* ══════════════════════════
+         8. FOOTER
+         Matches screenshot 6: tree icon, SYCOMORE®,
+         ART FIXING THE WORLD, address, legal links
+      ══════════════════════════ */
+      footer {
+        background: #2a2a2a;
+        color: #ccc;
+        padding: 32px 0 28px;
+        border-top: 1px solid #333;
+      }
+      .footer-inner {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        text-align: center;
+      }
+      .footer-tree-placeholder {
+        width: 72px; height: 72px;
+        background: #383838;
+        border: 1px solid #555;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Courier New", monospace;
+        font-size: 8px;
+        color: #777;
+        text-align: center;
+        padding: 6px;
+      }
+      .footer-logo-name {
+        font-size: 22px;
+        font-weight: bold;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #fff;
+      }
+      .footer-logo-name sup { font-size: 12px; }
+      .footer-tagline {
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #888;
+        margin-top: 2px;
+      }
+      .footer-address {
+        font-size: 11px;
+        color: #555;
+        margin-top: 4px;
+      }
+      .footer-links {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        border-top: 1px solid #333;
+        padding-top: 18px;
+        margin-top: 8px;
+        width: 100%;
+      }
+      .footer-links a {
+        font-size: 11px;
+        color: #555;
+        text-decoration: none;
+      }
+      .footer-links a:hover { color: #ccc; }
+
+      /* ══ SF MODAL (same as homepage) ══ */
+      .sf-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        z-index: 500;
+      }
+      .sf-panel {
+        position: absolute;
+        top: 0; right: 0; bottom: 0;
+        width: 380px;
+        background: #fff;
+        padding: 32px 28px;
+        overflow-y: auto;
+      }
+      .sf-panel h3 {
+        font-size: 14px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .sf-close { background:none; border:none; cursor:pointer; font-size:20px; color:#888; }
+      .sf-section { margin-bottom:24px; border-bottom:1px solid #eee; padding-bottom:20px; }
+      .sf-section h4 { font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#888; margin-bottom:12px; }
+      .sf-item { display:flex; align-items:center; gap:10px; margin-bottom:10px; cursor:pointer; }
+      .sf-cb { width:18px; height:18px; border:1.5px solid #bbb; display:flex; align-items:center; justify-content:center; flex-shrink:0; cursor:pointer; }
+      .sf-cb.checked { background:#111; border-color:#111; color:#fff; font-size:10px; }
+      .sf-item-label { font-size:12px; color:#333; }
+      .sf-btns { display:flex; gap:10px; margin-top:24px; }
+      .sf-clear { flex:1; border:1.5px solid #111; background:none; padding:10px; font-size:12px; cursor:pointer; font-family:inherit; }
+      .sf-confirm { flex:1; background:#111; color:#fff; border:none; padding:10px; font-size:12px; cursor:pointer; font-family:inherit; border-radius:20px; }
+
+      @media (max-width: 720px) {
+        .how-grid { grid-template-columns: 1fr; }
+        .how-center-col { display: none; }
+        .who-grid { grid-template-columns: 1fr; gap: 20px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ══════════════════════════════════
+         1. STICKY NAV — identical to homepage
+    ══════════════════════════════════ -->
+    <div class="nav-wrap">
+      <nav class="nav">
+        <div class="nav-logo">
+          <div class="nav-logo-icon">⊞</div>
+          <div class="nav-logo-text">Sycomore</div>
+        </div>
+        <div class="nav-links">
+          <a href="#">Artworks</a>
+          <a href="#">Collections</a>
+          <a href="#">Impact</a>
+          <a href="#" class="active">About</a>
+          <a href="#">Stories</a>
+          <a href="#">Galleries</a>
+          <a href="#">Scientists</a>
+          <a href="#">Artists</a>
+          <a href="#">Partners</a>
+          <a href="#">Our Team</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="nav-right">
+          <button class="nav-icon">🔍</button>
+          <button class="nav-icon" style="font-size:18px">
+            🛒<div class="cart-count">0</div>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- ══════════════════════════════════
+         2. HERO — Mission (Screenshot 1)
+         White bg, centred text, artwork image below
+    ══════════════════════════════════ -->
+    <section class="about-hero">
+      <div class="wf-label"><span class="wf-badge">Section 1</span> Page Hero — Mission + Artwork Image</div>
+
+      <h1>The Most Powerful Art in the World</h1>
+
+      <div class="mission-block">
+        <h2>Our Mission</h2>
+        <p>Sycomore transforms art into a living force for change.</p>
+        <p>We connect artists and scientists to create powerful artworks that do more than inspire — they fund solutions.</p>
+        <p>Every original masterpiece and every print sold helps tackle our planet's greatest challenges, from oceans drowning in plastic to forests disappearing at alarming speed.</p>
+      </div>
+
+      <div class="hero-artwork-placeholder">
+        [ Artwork Image Placeholder ]<br/><br/>
+        e.g. sea turtle painting<br/>
+        (full artwork, rounded corners, below mission copy)
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         3. HOW IT WORKS (Screenshot 2)
+         6 numbered steps, central tree image
+    ══════════════════════════════════ -->
+    <section class="section">
+      <div class="section-inner">
+        <div class="wf-label"><span class="wf-badge">Section 2</span> How it Works — 6 Steps + Central Tree Image</div>
+        <div class="section-title-center">How it works</div>
+
+        <div class="how-grid">
+          <!-- Steps 1–3 (left column) -->
+          <div class="how-steps-col">
+            <div>
+              <div class="how-step-num">1.</div>
+              <div class="how-step-text">Scientists identify urgent environmental problems</div>
+            </div>
+            <div>
+              <div class="how-step-num">2.</div>
+              <div class="how-step-text">Artists translate these challenges into inspiring collections</div>
+            </div>
+            <div>
+              <div class="how-step-num">3.</div>
+              <div class="how-step-text">We release art in collections based on specific environmental problems</div>
+            </div>
+          </div>
+
+          <!-- Central image: Sycomore tree / art collage -->
+          <div class="how-center-col">
+            <div class="how-tree-placeholder">
+              [ Tree logo /<br/>Art collage<br/>image ]
+            </div>
+          </div>
+
+          <!-- Steps 4–6 (right column) -->
+          <div class="how-steps-col">
+            <div>
+              <div class="how-step-num">4.</div>
+              <div class="how-step-text">Collectors &amp; companies purchase originals and prints</div>
+            </div>
+            <div>
+              <div class="how-step-num">5.</div>
+              <div class="how-step-text">Funds fuel breakthrough science-based solutions</div>
+            </div>
+            <div>
+              <div class="how-step-num">6.</div>
+              <div class="how-step-text">Impact is measured, proven, and shared with the world</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         4. WHY SYCOMORE IS DIFFERENT + WHO WE SERVE
+         Screenshot 3: 3 pillars, thick divider, 3 audience cards
+    ══════════════════════════════════ -->
+    <section class="section alt-bg">
+      <div class="section-inner">
+        <div class="wf-label"><span class="wf-badge">Section 3</span> Why Different + Who We Serve</div>
+
+        <div class="section-title-center">Why Sycomore is different</div>
+
+        <div class="pillar-block">
+          <h3>Impact-Provenance Originals (IPO Art™)</h3>
+          <p>A world-first scoring system that shows how much impact each artwork has generated.</p>
+        </div>
+
+        <div class="pillar-block">
+          <h3>Collections With Purpose</h3>
+          <p>Every artwork belongs to a cause-driven collection like oceans, forests, soil, endangered species and all funding targeted solutions.</p>
+        </div>
+
+        <div class="pillar-block">
+          <h3>Transparent Legacy</h3>
+          <p>Every purchase is tied to visible, trackable impact, creating trust and long-term value.</p>
+        </div>
+
+        <!-- Thick divider (screenshot 3) -->
+        <div class="thick-divider"></div>
+
+        <div class="who-serve-title">Who We Serve</div>
+        <div class="who-grid">
+          <div class="who-card">
+            <h3>Collectors</h3>
+            <p>Own masterpieces &amp; prints whose value grows with their impact.</p>
+          </div>
+          <div class="who-card">
+            <h3>Partners</h3>
+            <p>Align donations with measurable, public-facing solutions.</p>
+          </div>
+          <div class="who-card">
+            <h3>Scientists</h3>
+            <p>Unlock funding to bring solutions to life.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         5. IPO CERTIFICATE + LEGACY COPY
+         Screenshot 4: certificate box + 2 body paragraphs
+    ══════════════════════════════════ -->
+    <section class="section cert-section">
+      <div class="section-inner">
+        <div class="wf-label" style="display:block; text-align:left; margin-bottom:24px;">
+          <span class="wf-badge">Section 4</span> IPO Certificate of Ownership + Legacy Copy
+        </div>
+
+        <!-- Certificate box (matches screenshot 4) -->
+        <div class="cert-box">
+          <!-- Logo row -->
+          <div class="cert-logo-row">
+            <div class="cert-tree-icon">[ Tree<br/>logo ]</div>
+            <div class="cert-brand">
+              <div class="cert-brand-name">SYCOMORE<sup style="font-size:11px;">®</sup></div>
+              <div class="cert-brand-sub">Art Fixing the World</div>
+            </div>
+          </div>
+
+          <div class="cert-heading">Certificate of Art Ownership</div>
+
+          <div class="cert-field-label">Collection and item:</div>
+          <div class="cert-collection-value">Forests &nbsp;|&nbsp; In chase of a changed world</div>
+
+          <div style="text-align:center;">
+            <div class="cert-ipo-pill">
+              <div class="cert-ipo-symbol">∞</div>
+              <span class="cert-ipo-num">135</span>
+            </div>
+          </div>
+
+          <div class="cert-owner-line"><strong>Owners name:</strong> Michael Mangos</div>
+          <div class="cert-owner-line"><strong>Date of purchase:</strong> 13 May 2025</div>
+
+          <div class="cert-fine-print">
+            All art owners are registered on the Sycomore ownership ledger. If you wish to sell this piece of art and/or transfer the ownership name, then please email info@sycomo.re. Certificates will be updated with new owner details on the Sycomore ledger.
+          </div>
+        </div>
+
+        <!-- Body copy below certificate -->
+        <div class="cert-body">
+          <p>Unlike traditional art, every Sycomore piece builds a legacy. With every collector, every sale, and every partnership, the <strong>Impact Provenance Original™ Score rises</strong>, showing the growing footprint of positive change.</p>
+          <p>Each Sycomore collection consists of natural art pieces. Each piece and the rightful owner is recorded on the Sycomore ledger and comes with a certificate of ownership. This means your artwork will be mapped to the environmental problem and its subsequent solutions, which are ledgered on the Sycomore platform.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         6. MANIFESTO + CONTACT CTA
+         Screenshot 5: startup note, Contact button,
+         divider, bold headline, 4 paragraphs
+    ══════════════════════════════════ -->
+    <section class="section alt-bg manifesto-section">
+      <div class="section-inner">
+        <div class="wf-label" style="display:block; text-align:left; margin-bottom:24px;">
+          <span class="wf-badge">Section 5</span> Manifesto + Contact CTA
+        </div>
+
+        <div class="startup-note">
+          <p>It's ok, we're a tech start up. Our roadmap is exciting. So far we are part of the London Climate Action week &amp; contribute to the UN's SDG's.</p>
+          <p style="margin-top:10px;">Take the initiative… Collaborate with us.</p>
+        </div>
+
+        <a class="contact-cta-btn" href="#">Contact</a>
+
+        <div class="manifesto-divider"></div>
+
+        <div class="manifesto-headline">Our challenges are vast. Don't be complicit onlookers.</div>
+
+        <div class="manifesto-body">
+          <p>There is no more time for the awareness narrative but instead we need to be doing. We can't equivocate on this. We're an open platform where readers can explore and engage with problems and solutions to our environmental problems. Here, expert and undiscovered voices dig deep into solutions, small and big and allow readers to be part of the story.</p>
+          <p>We're creating a new funding mechanism for innovators who can create or co-curate solutions and deliver them successfully. One that supports nuance and complexity in an inclusive and transparent way. One that allows the public and businesses to confidently engage and help fund the best solutions.</p>
+          <p>It's a place for everyone and fosters deeper connections between the science community, the general public and businesses allowing us all to be part of the solutions.</p>
+          <p>Together we can collaborate and build a trusted and vibrant ecosystem fuelled by important solutions and the people who create them and those that can help accelerate them into being.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         7. NEWSLETTER (Screenshot 6)
+         Dark bg, email input + arrow, 3 lines of copy
+    ══════════════════════════════════ -->
+    <div class="newsletter-wrap">
+      <div class="newsletter-inner">
+        <div class="wf-label" style="color:#555; border-color:#444; margin-bottom:18px;">
+          <span class="wf-badge">Section 6</span> Newsletter — dark strip
+        </div>
+        <div class="nl-input-row">
+          <input type="email" placeholder="Enter your email" />
+          <span class="nl-arrow">→</span>
+        </div>
+        <div class="nl-copy">
+          <p>Subscribe to our newsletter.</p>
+          <p>Be the first to hear about new causes/collections, art pieces and more.</p>
+          <p>By subscribing you agree to our <a href="#">privacy policy</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         8. FOOTER (Screenshot 6)
+         Tree icon, SYCOMORE®, ART FIXING THE WORLD,
+         address, legal links
+    ══════════════════════════════════ -->
+    <footer>
+      <div class="footer-inner">
+        <div class="wf-label" style="color:#555; border-color:#333;">
+          Footer — same as homepage
+        </div>
+        <div class="footer-tree-placeholder">[ Sycomore<br/>tree logo ]</div>
+        <div>
+          <div class="footer-logo-name">SYCOMORE<sup>©</sup></div>
+          <div class="footer-tagline">Art Fixing the World</div>
+        </div>
+        <div class="footer-address">
+          7 Bell Yard, The Strand, London. England. UK Co. No.12436937
+        </div>
+        <div class="footer-links">
+          <a href="#">Terms of Use</a>
+          <a href="#">Shipping Conditions</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Exchange and Return Policy</a>
+          <a href="#">Track Your Order</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ══ SORT & FILTER PANEL (same as homepage) ══ -->
+    <div class="sf-overlay" id="sfOverlay" onclick="closeSF(event)">
+      <div class="sf-panel">
+        <h3>Sort &amp; Filter <button class="sf-close" onclick="closeSFBtn()">×</button></h3>
+        <div class="sf-section">
+          <h4>Sort</h4>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb">☐</div><span class="sf-item-label">Recently Added</span>
+          </div>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb">☐</div><span class="sf-item-label">Price: High to Low</span>
+          </div>
+          <div class="sf-item" onclick="toggleCB(this)">
+            <div class="sf-cb">☐</div><span class="sf-item-label">Price: Low to High</span>
+          </div>
+        </div>
+        <div class="sf-btns">
+          <button class="sf-clear" onclick="clearFilters()">Clear</button>
+          <button class="sf-confirm" onclick="closeSFBtn()">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function closeSFBtn() { document.getElementById("sfOverlay").style.display = "none"; }
+      function closeSF(e) { if (e.target === document.getElementById("sfOverlay")) closeSFBtn(); }
+      function toggleCB(el) {
+        const cb = el.querySelector(".sf-cb");
+        cb.classList.contains("checked")
+          ? (cb.classList.remove("checked"), cb.textContent = "☐")
+          : (cb.classList.add("checked"), cb.textContent = "✓");
+      }
+      function clearFilters() {
+        document.querySelectorAll(".sf-cb").forEach(cb => {
+          cb.classList.remove("checked"); cb.textContent = "☐";
+        });
+      }
+    </script>
+  </body>
+</html>
