@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sycomore — Partners Wireframe</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Georgia', serif; background: #fff; color: #111; font-size: 14px; line-height: 1.5; }
+
+/* ══ WF META BAR ══ */
+.hub-bar {
+  background: #111; color: #fff;
+  padding: 9px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 3px solid #2d5a3d;
+}
+.hub-bar-left { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #888; }
+.hub-bar-left strong { color: #fff; }
+.wf-badge { background: #2d5a3d; color: #fff; font-family: 'Courier New', monospace; font-size: 9px; letter-spacing: .1em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+.wf-label { font-family: 'Courier New', monospace; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; color: #999; border: 1px dashed #ccc; padding: 2px 6px; display: inline-block; margin-bottom: 10px; }
+
+/* ══════════════════════════
+   SITE NAV — matches homepage wireframe exactly
+══════════════════════════ */
+.nav-wrap {
+  position: sticky; top: 0; z-index: 200;
+  background: #fff; border-bottom: 1px solid #c8c8c4;
+}
+.nav {
+  max-width: 1440px; margin: 0 auto;
+  display: flex; align-items: center;
+  padding: 0 24px; height: 58px;
+}
+.nav-logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-right: 32px; }
+.nav-logo-icon {
+  width: 32px; height: 32px; background: #ddddd8;
+  border: 1px solid #c8c8c4;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: #666; font-family: 'Courier New', monospace;
+}
+.nav-logo-text { font-family: 'Georgia', serif; font-size: 15px; letter-spacing: .18em; text-transform: uppercase; font-weight: bold; }
+.nav-links { display: flex; align-items: center; flex: 1; overflow: hidden; }
+.nav-links a { color: #222; text-decoration: none; font-size: 12px; padding: 0 10px; letter-spacing: .03em; white-space: nowrap; }
+.nav-links a:hover { text-decoration: underline; }
+.nav-links a.active { font-weight: bold; text-decoration: underline; }
+.nav-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: 16px; }
+.nav-icon { width: 32px; height: 32px; background: none; border: none; cursor: pointer; font-size: 16px; color: #333; display: flex; align-items: center; justify-content: center; position: relative; }
+.cart-count { position: absolute; top: 2px; right: 2px; background: #c44; color: #fff; font-size: 8px; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Courier New', monospace; }
+
+/* ══════════════════════════
+   SECTION 1 — HERO
+   Dark overlay box on top, full artwork image below
+   Matches screenshot 1 exactly
+══════════════════════════ */
+.hero-wrap {
+  position: relative;
+  background: #fff;
+  border-bottom: 1px solid #e0e0dc;
+}
+
+/* Dark text overlay box (top of screenshot 1) */
+.hero-text-box {
+  background: #3a3a3a;
+  color: #fff;
+  text-align: center;
+  padding: 44px 40px 40px;
+}
+.hero-text-box h1 {
+  font-size: 28px; font-weight: bold;
+  letter-spacing: -.01em; margin-bottom: 14px;
+}
+.hero-text-box .hero-bold {
+  font-size: 15px; font-weight: bold;
+  margin-bottom: 16px; color: #fff;
+}
+.hero-text-box p {
+  font-size: 14px; color: #ccc;
+  max-width: 620px; margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* Artwork image below the dark box */
+.hero-artwork {
+  width: 100%;
+  height: 460px;
+  background: #b8b0a8;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Courier New', monospace; font-size: 10px;
+  color: rgba(255,255,255,.5); letter-spacing: .08em; text-transform: uppercase;
+  position: relative;
+}
+/* Caption strip at bottom of artwork image (matches screenshot) */
+.hero-artwork-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(255,255,255,.92);
+  padding: 12px 24px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.hero-artwork-caption .cap-title { font-size: 14px; font-weight: bold; color: #111; }
+.hero-artwork-caption .cap-sub { font-size: 11px; color: #555; }
+.hero-artwork-caption .cap-brand { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #888; margin-top: 2px; font-family: 'Courier New', monospace; }
+
+/* ══════════════════════════
+   SECTION 2 — FORM + TIERS
+   Matches screenshot 2 & 3
+   White bg, underline inputs, gold tier cards
+══════════════════════════ */
+.form-section {
+  max-width: 760px; margin: 0 auto;
+  padding: 56px 32px 64px;
+}
+
+.form-section h2 {
+  font-size: 28px; font-weight: bold;
+  text-align: center; margin-bottom: 8px;
+}
+.form-section .form-sub {
+  font-size: 14px; color: #555;
+  text-align: center; margin-bottom: 40px;
+}
+
+/* Underline-only input style (matches screenshot 2) */
+.field-group { margin-bottom: 28px; }
+.field-group label {
+  display: block;
+  font-size: 14px; font-weight: bold;
+  color: #111; margin-bottom: 10px;
+}
+.field-group label span { font-weight: normal; color: #555; }
+.field-group input {
+  width: 100%;
+  border: none; border-bottom: 1px solid #bbb;
+  outline: none; padding: 8px 0;
+  font-family: 'Georgia', serif; font-size: 14px;
+  color: #111; background: transparent;
+  transition: border-color .15s;
+}
+.field-group input::placeholder { color: #bbb; font-style: italic; }
+.field-group input:focus { border-bottom-color: #111; }
+
+/* Tier select heading */
+.tier-select-label {
+  font-size: 14px; font-weight: bold;
+  margin-bottom: 20px; margin-top: 8px;
+}
+
+/* 3-column tier cards — matches screenshot 2 & 3 */
+.tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.tier-card {
+  border: 2px solid #c8a84b; /* gold/amber border */
+  border-radius: 4px;
+  display: flex; flex-direction: column;
+  padding: 0;
+  cursor: pointer;
+  transition: box-shadow .2s, transform .1s;
+  background: #fff;
+  position: relative;
+}
+.tier-card:hover { box-shadow: 0 4px 18px rgba(200,168,75,.25); transform: translateY(-2px); }
+.tier-card.selected { border-color: #c8a84b; box-shadow: 0 4px 18px rgba(200,168,75,.35); }
+.tier-card.dim { border-color: #ccc; }
+.tier-card.dim .tier-icon-area svg rect,
+.tier-card.dim .tier-icon-area svg path { fill: #bbb; }
+
+/* Sycomore tree icon at top of each card */
+.tier-icon-area {
+  text-align: center; padding: 20px 16px 12px;
+  border-bottom: 1px solid #f0f0ee;
+}
+.tier-tree-icon {
+  width: 52px; height: 52px; margin: 0 auto 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.tier-tree-icon svg { width: 48px; height: 48px; }
+.tier-brand-text {
+  font-family: 'Courier New', monospace;
+  font-size: 9px; letter-spacing: .14em;
+  text-transform: uppercase; color: #c8a84b;
+  display: block; line-height: 1.3;
+}
+.tier-card.dim .tier-brand-text { color: #bbb; }
+
+/* Card body */
+.tier-body { padding: 16px 16px 12px; flex: 1; }
+.tier-name {
+  font-size: 14px; font-weight: bold;
+  text-align: center; margin-bottom: 10px;
+  line-height: 1.3; letter-spacing: .02em;
+}
+.tier-founding {
+  font-size: 12px; color: #555;
+  text-align: center; font-style: italic;
+  margin-bottom: 12px; line-height: 1.5;
+}
+.tier-perks {
+  list-style: disc; padding-left: 18px;
+  margin-bottom: 0;
+}
+.tier-perks li {
+  font-size: 12px; color: #333;
+  margin-bottom: 8px; line-height: 1.55;
+}
+.tier-perks li strong { font-weight: bold; }
+
+/* SELECT button inside card */
+.tier-card-foot { padding: 14px 16px; }
+.tier-select-btn {
+  display: block; width: 100%;
+  background: #fff; color: #111;
+  border: 1.5px solid #111;
+  font-family: 'Georgia', serif; font-size: 12px;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 10px; cursor: pointer;
+  border-radius: 2px; text-align: center;
+  transition: background .15s, color .15s;
+}
+.tier-select-btn:hover, .tier-select-btn.selected {
+  background: #111; color: #fff;
+}
+
+/* Submit button — full width, grey/light (matches screenshot 3) */
+.submit-btn {
+  display: block; width: 100%;
+  background: #fff; color: #111;
+  border: 1.5px solid #bbb;
+  font-family: 'Georgia', serif; font-size: 14px;
+  letter-spacing: .06em;
+  padding: 16px; cursor: pointer;
+  border-radius: 2px; text-align: center;
+  margin-top: 8px;
+  transition: background .15s, border-color .15s;
+}
+.submit-btn:hover { background: #111; color: #fff; border-color: #111; }
+.submit-btn.sent { background: #2d5a3d; color: #fff; border-color: #2d5a3d; }
+
+/* ══════════════════════════
+   SECTION 3 — GLOBE FEATURE
+   NEW: Per-partner interactive globe
+   Shows active projects on a draggable globe
+══════════════════════════ */
+.globe-section {
+  background: #f4f4f2;
+  border-top: 1px solid #e0e0dc;
+  border-bottom: 1px solid #e0e0dc;
+  padding: 56px 0 48px;
+}
+.globe-inner { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+.globe-section-title {
+  font-size: 26px; font-weight: bold;
+  text-align: center; margin-bottom: 8px;
+}
+.globe-section-sub {
+  font-size: 13px; color: #666;
+  text-align: center; max-width: 560px;
+  margin: 0 auto 36px; line-height: 1.7;
+}
+
+/* Accordion partner rows */
+.partner-rows { display: flex; flex-direction: column; gap: 2px; }
+
+.partner-row {
+  background: #fff;
+  border: 1px solid #ddd;
+  overflow: hidden;
+}
+
+.partner-row-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  cursor: pointer;
+  transition: background .12s;
+  border-bottom: 1px solid transparent;
+}
+.partner-row-header:hover { background: #f8f8f6; }
+.partner-row-header.open { background: #f4f4f2; border-bottom-color: #ddd; }
+
+.partner-left { display: flex; align-items: center; gap: 16px; }
+.partner-logo-placeholder {
+  width: 72px; height: 44px;
+  background: #ebebea; border: 1px solid #ddd;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Courier New', monospace; font-size: 8px;
+  color: #bbb; letter-spacing: .06em; text-transform: uppercase;
+  flex-shrink: 0;
+}
+.partner-info-name { font-size: 15px; font-weight: bold; margin-bottom: 2px; }
+.partner-info-meta { font-family: 'Courier New', monospace; font-size: 10px; color: #aaa; letter-spacing: .06em; }
+
+.partner-right { display: flex; align-items: center; gap: 12px; }
+.partner-tier-pill {
+  font-family: 'Courier New', monospace; font-size: 9px;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 2px;
+}
+.pill-pioneer { background: #111; color: #fff; }
+.pill-guardian { background: #2d5a3d; color: #fff; }
+.pill-catalyst { background: #f0f0ee; color: #888; border: 1px solid #ddd; }
+.partner-cause-tag {
+  background: #e8f0eb; color: #2d5a3d;
+  font-family: 'Courier New', monospace; font-size: 9px;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 3px 10px; border: 1px solid #b8d4bf;
+}
+.partner-toggle-icon {
+  font-size: 22px; color: #aaa;
+  font-weight: 300; line-height: 1;
+  width: 24px; text-align: center;
+  transition: transform .2s;
+  font-family: 'Courier New', monospace;
+}
+.partner-toggle-icon.open { transform: rotate(45deg); }
+
+/* Expanded globe + projects panel */
+.partner-expanded {
+  display: none;
+  grid-template-columns: 400px 1fr;
+}
+.partner-expanded.open { display: grid; }
+
+/* Globe side */
+.globe-side {
+  background: #07101f;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-start;
+  padding: 24px;
+  min-height: 400px;
+}
+.globe-search {
+  width: 100%; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.12);
+  padding: 8px 14px;
+}
+.globe-search input {
+  flex: 1; background: none; border: none; outline: none;
+  font-family: 'Courier New', monospace; font-size: 11px;
+  color: #fff; letter-spacing: .04em;
+}
+.globe-search input::placeholder { color: rgba(255,255,255,.3); }
+.globe-search-icon { color: rgba(255,255,255,.4); font-size: 13px; }
+canvas.globe-canvas { display: block; border-radius: 50%; }
+.globe-drag-hint {
+  margin-top: 10px;
+  font-family: 'Courier New', monospace; font-size: 9px;
+  color: rgba(255,255,255,.3); letter-spacing: .1em; text-transform: uppercase;
+  text-align: center;
+}
+
+/* Projects side */
+.projects-side {
+  padding: 22px 24px;
+  overflow-y: auto; max-height: 400px;
+  background: #fff;
+}
+.projects-side::-webkit-scrollbar { width: 3px; }
+.projects-side::-webkit-scrollbar-thumb { background: #ddd; }
+
+.projects-header {
+  font-family: 'Courier New', monospace; font-size: 9px;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: #aaa; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.projects-header::after { content:''; flex:1; height:1px; background:#eee; }
+
+.proj-item {
+  padding: 12px 14px; border: 1px solid #eee;
+  margin-bottom: 8px; cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.proj-item:hover { border-color: #2d5a3d; background: #f0f6f2; }
+.proj-item.lit { border-color: #2d5a3d; background: #e8f4ed; }
+.proj-item-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+.proj-item-name { font-size: 13px; font-weight: bold; line-height: 1.3; color: #111; }
+.proj-item-loc { font-family: 'Courier New', monospace; font-size: 9px; color: #2d5a3d; letter-spacing: .06em; text-transform: uppercase; flex-shrink: 0; white-space: nowrap; }
+.proj-item-cause { display: inline-block; font-family: 'Courier New', monospace; font-size: 8px; letter-spacing: .06em; text-transform: uppercase; background: #e8f0eb; color: #2d5a3d; padding: 2px 6px; border: 1px solid #b8d4bf; margin-bottom: 5px; }
+.proj-item-desc { font-size: 11px; color: #888; line-height: 1.55; }
+
+/* ══════════════════════════
+   NEWSLETTER + FOOTER
+   Matches screenshot 3 exactly
+══════════════════════════ */
+.newsletter-wrap { background: #2a2a2a; padding: 40px 32px 0; }
+.newsletter-inner { max-width: 760px; margin: 0 auto; }
+.nl-row {
+  display: flex; align-items: center;
+  border-bottom: 1px solid #666; margin-bottom: 20px; padding-bottom: 6px;
+}
+.nl-row input {
+  flex: 1; background: none; border: none; outline: none;
+  color: #fff; font-family: 'Georgia', serif; font-size: 14px; padding: 10px 0;
+}
+.nl-row input::placeholder { color: #666; }
+.nl-arrow { color: #fff; font-size: 20px; cursor: pointer; }
+.nl-copy { font-size: 13px; color: #bbb; line-height: 1.75; padding-bottom: 32px; }
+.nl-copy p { margin-bottom: 2px; }
+.nl-copy a { color: #bbb; text-decoration: underline; }
+
+footer {
+  background: #2a2a2a; color: #666;
+  padding: 32px 32px 28px;
+  border-top: 1px solid #333;
+  text-align: center;
+}
+.footer-tree {
+  width: 68px; height: 68px;
+  background: #383838; border: 1px solid #555;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Courier New', monospace; font-size: 8px;
+  color: #777; text-align: center; padding: 6px;
+  margin: 0 auto 10px;
+}
+.footer-logo-name {
+  font-size: 22px; font-weight: bold;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: #fff; margin-bottom: 4px;
+}
+.footer-tagline {
+  font-size: 9px; letter-spacing: .16em;
+  text-transform: uppercase; color: #777; margin-bottom: 12px;
+}
+.footer-addr { font-size: 11px; color: #555; margin-bottom: 20px; }
+.footer-links {
+  display: flex; gap: 20px; flex-wrap: wrap;
+  justify-content: center;
+  border-top: 1px solid #333; padding-top: 18px;
+}
+.footer-links a { font-size: 11px; color: #555; text-decoration: none; }
+.footer-links a:hover { color: #ccc; }
+
+@media(max-width:800px){
+  .tiers-grid { grid-template-columns: 1fr; }
+  .partner-expanded { grid-template-columns: 1fr; }
+  .globe-side { min-height: 320px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ WF META BAR ══ -->
+<div class="hub-bar">
+  <div class="hub-bar-left">⊞ Sycomore · Design System · <strong>Partners Page Wireframe</strong> · partners/index.html</div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span class="wf-badge">v1.0 · Draft</span>
+    <span style="font-family:'Courier New',monospace;font-size:10px;color:#666;">March 2026</span>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
+<div class="nav-wrap">
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">⊞</div>
+      <div class="nav-logo-text">Sycomore</div>
+    </div>
+    <div class="nav-links">
+      <a href="#">Artworks</a>
+      <a href="#">Collections</a>
+      <a href="#">Impact</a>
+      <a href="#">About</a>
+      <a href="#">Stories</a>
+      <a href="#">Scientists</a>
+      <a href="#">Artists</a>
+      <a href="#" class="active">Become a Partner</a>
+      <a href="#">Our Team</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="nav-icon">🔍</button>
+      <button class="nav-icon" style="font-size:18px">🛒<div class="cart-count">0</div></button>
+    </div>
+  </nav>
+</div>
+
+<!-- ══════════════════════════════════
+     SECTION 1 — HERO
+     Dark text box on top + artwork image below
+     Matches screenshot 1 exactly
+══════════════════════════════════ -->
+<section>
+  <div class="wf-label" style="margin:10px 16px 0;"><span class="wf-badge">Section 1</span> Hero — Dark text overlay + Artwork image</div>
+
+  <div class="hero-wrap">
+    <!-- Dark box (top) -->
+    <div class="hero-text-box">
+      <h1>Partner with us</h1>
+      <p class="hero-bold"><strong>Your Legacy: A Planet Restored.</strong></p>
+      <p>The greatest measure of success is the world we leave behind. By partnering with Sycomore, your organisation can play a pivotal role in restoring ecosystems, protecting biodiversity, and creating a sustainable future — all while inspiring global audiences through art. Together, we'll create a legacy your customers, employees, and stakeholders will be proud to stand behind.</p>
+    </div>
+
+    <!-- Full-width artwork image below dark box -->
+    <div class="hero-artwork">
+      [ Artwork image placeholder — e.g. "In Chase of a Changed World" painting with people viewing ]
+      <!-- Caption strip at bottom of image -->
+      <div class="hero-artwork-caption">
+        <div class="cap-title">In Chase of a Changed World</div>
+        <div class="cap-sub">Saving Our Forests</div>
+        <div class="cap-brand">SYCOMORE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 2 — FORM + TIER CARDS
+     Matches screenshot 2 & 3 exactly
+     White bg, underline inputs, gold border tier cards
+══════════════════════════════════ -->
+<section>
+  <div class="wf-label" style="margin:10px 16px 0;"><span class="wf-badge">Section 2</span> Form + Tier Selection — underline inputs, gold bordered cards</div>
+
+  <div class="form-section">
+    <h2>Partner with Sycomore</h2>
+    <p class="form-sub">Request your sponsorship pack</p>
+
+    <!-- Fields matching screenshot 2 -->
+    <div class="field-group">
+      <label>Full Name <span>(required)</span></label>
+      <input type="text" placeholder="Enter your full name"/>
+    </div>
+    <div class="field-group">
+      <label>Email Address <span>(required)</span></label>
+      <input type="email" placeholder="Enter your email address"/>
+    </div>
+    <div class="field-group">
+      <label>Company / Brand Name <span>(required)</span></label>
+      <input type="text" placeholder="Enter your company / brand name"/>
+    </div>
+    <div class="field-group">
+      <label>Position / Role <span>(optional)</span></label>
+      <input type="text" placeholder="Your position / role"/>
+    </div>
+    <div class="field-group">
+      <label>Website / LinkedIn <span>(optional)</span></label>
+      <input type="text" placeholder="Website or LinkedIn URL"/>
+    </div>
+
+    <!-- Tier heading -->
+    <div class="tier-select-label">Select Sponsorship Tier:</div>
+
+    <!-- 3 gold-bordered tier cards matching screenshot 2 & 3 -->
+    <div class="tiers-grid">
+
+      <!-- Pioneer -->
+      <div class="tier-card" id="card-pioneer" onclick="pickTier('pioneer')">
+        <div class="tier-icon-area">
+          <!-- Sycomore tree SVG icon in gold -->
+          <div class="tier-tree-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="26" width="8" height="16" fill="#c8a84b"/>
+              <rect x="6" y="12" width="36" height="4" fill="#c8a84b"/>
+              <rect x="10" y="6" width="4" height="9" fill="#c8a84b"/>
+              <rect x="34" y="6" width="4" height="9" fill="#c8a84b"/>
+              <rect x="6" y="4" width="4" height="4" fill="#c8a84b"/>
+              <rect x="38" y="4" width="4" height="4" fill="#c8a84b"/>
+              <rect x="16" y="18" width="4" height="6" fill="#c8a84b"/>
+              <rect x="28" y="18" width="4" height="6" fill="#c8a84b"/>
+              <rect x="20" y="16" width="8" height="4" fill="#c8a84b"/>
+            </svg>
+          </div>
+          <span class="tier-brand-text">SYCOMORE®<br/>ART FIXING THE WORLD</span>
+        </div>
+        <div class="tier-body">
+          <div class="tier-name">PIONEER<br/>PARTNERS™</div>
+          <div class="tier-founding">(Founding tier – limited to the first 10 partners)</div>
+          <ul class="tier-perks">
+            <li>Exclusive "Pioneer" badge displayed under your logo</li>
+            <li>Forever listed in Sycomore's history as the first sponsors.</li>
+            <li>Strongest visibility across collections and PR.</li>
+            <li>Positioning as the <strong>partners that made Sycomore possible</strong></li>
+          </ul>
+        </div>
+        <div class="tier-card-foot">
+          <button class="tier-select-btn" id="btn-pioneer">SELECT</button>
+        </div>
+      </div>
+
+      <!-- Guardians -->
+      <div class="tier-card dim" id="card-guardian" onclick="pickTier('guardian')">
+        <div class="tier-icon-area">
+          <div class="tier-tree-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="26" width="8" height="16" fill="#aaa"/>
+              <rect x="6" y="12" width="36" height="4" fill="#aaa"/>
+              <rect x="10" y="6" width="4" height="9" fill="#aaa"/>
+              <rect x="34" y="6" width="4" height="9" fill="#aaa"/>
+              <rect x="6" y="4" width="4" height="4" fill="#aaa"/>
+              <rect x="38" y="4" width="4" height="4" fill="#aaa"/>
+              <rect x="16" y="18" width="4" height="6" fill="#aaa"/>
+              <rect x="28" y="18" width="4" height="6" fill="#aaa"/>
+              <rect x="20" y="16" width="8" height="4" fill="#aaa"/>
+            </svg>
+          </div>
+          <span class="tier-brand-text" style="color:#aaa;">SYCOMORE®<br/>ART FIXING THE WORLD</span>
+        </div>
+        <div class="tier-body">
+          <div class="tier-name">GUARDIANS OF<br/>IMPACT™</div>
+          <ul class="tier-perks">
+            <li>Recognised as key funders of specific categories (e.g. Oceans, Forests, Endangered species).</li>
+            <li>Logos tied visibly to those categories.</li>
+            <li>Sponsorship directly linked to tangible milestones (e.g., ghost net retrieval, coral restoration).</li>
+            <li>Highlighted in category updates and press releases.</li>
+          </ul>
+        </div>
+        <div class="tier-card-foot">
+          <button class="tier-select-btn" id="btn-guardian">SELECT</button>
+        </div>
+      </div>
+
+      <!-- Catalyst -->
+      <div class="tier-card dim" id="card-catalyst" onclick="pickTier('catalyst')">
+        <div class="tier-icon-area">
+          <div class="tier-tree-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="26" width="8" height="16" fill="#c8a84b"/>
+              <rect x="6" y="12" width="36" height="4" fill="#c8a84b"/>
+              <rect x="10" y="6" width="4" height="9" fill="#c8a84b"/>
+              <rect x="34" y="6" width="4" height="9" fill="#c8a84b"/>
+              <rect x="6" y="4" width="4" height="4" fill="#c8a84b"/>
+              <rect x="38" y="4" width="4" height="4" fill="#c8a84b"/>
+              <rect x="16" y="18" width="4" height="6" fill="#c8a84b"/>
+              <rect x="28" y="18" width="4" height="6" fill="#c8a84b"/>
+              <rect x="20" y="16" width="8" height="4" fill="#c8a84b"/>
+            </svg>
+          </div>
+          <span class="tier-brand-text">SYCOMORE®<br/>ART FIXING THE WORLD</span>
+        </div>
+        <div class="tier-body">
+          <div class="tier-name">CATALYST<br/>SPONSORS™</div>
+          <ul class="tier-perks">
+            <li>Entry-level tier, ideal for partners starting their Sycomore journey.</li>
+            <li>Logo and contribution appear in the Impact Score popup for each collection you support.</li>
+            <li>Recognition as catalysts driving real solutions through art</li>
+          </ul>
+        </div>
+        <div class="tier-card-foot">
+          <button class="tier-select-btn" id="btn-catalyst">SELECT</button>
+        </div>
+      </div>
+
+    </div><!-- /tiers-grid -->
+
+    <!-- Submit button — matches screenshot 3 -->
+    <button class="submit-btn" id="submitBtn" onclick="submitForm(this)">Submit</button>
+
+  </div><!-- /form-section -->
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 3 — GLOBE FEATURE (NEW)
+     Per-partner interactive globe
+     Click partner row to expand globe + project list
+     Drag globe to rotate, click pin to highlight project
+══════════════════════════════════ -->
+<section class="globe-section">
+  <div class="globe-inner">
+    <div class="wf-label"><span class="wf-badge">Section 3</span> Active Partners + Interactive Globe — NEW feature</div>
+    <div class="globe-section-title">Our Partners in Action</div>
+    <p class="globe-section-sub">Click any partner below to explore their active projects on an interactive globe. Drag to rotate, search by location, click a pin to highlight the project.</p>
+
+    <div class="partner-rows">
+
+      <!-- ── Partner 1 ── -->
+      <div class="partner-row">
+        <div class="partner-row-header" onclick="toggleRow('r1')">
+          <div class="partner-left">
+            <div class="partner-logo-placeholder">Partner<br/>Logo</div>
+            <div>
+              <div class="partner-info-name">Partner One</div>
+              <div class="partner-info-meta">Pioneer Partner · Ocean · Since 2025</div>
+            </div>
+          </div>
+          <div class="partner-right">
+            <span class="partner-tier-pill pill-pioneer">Pioneer</span>
+            <span class="partner-cause-tag">🌊 Ocean</span>
+            <span class="partner-toggle-icon" id="icon-r1">+</span>
+          </div>
+        </div>
+        <div class="partner-expanded" id="exp-r1">
+          <div class="globe-side">
+            <div class="globe-search">
+              <span class="globe-search-icon">🔍</span>
+              <input type="text" placeholder="Search location or project…" oninput="filterProj('r1',this.value)"/>
+            </div>
+            <canvas class="globe-canvas" id="gc-r1" width="340" height="340"></canvas>
+            <div class="globe-drag-hint">Drag to rotate · Click pin to highlight project</div>
+          </div>
+          <div class="projects-side">
+            <div class="projects-header">Active Projects</div>
+            <div id="plist-r1">
+              <div class="proj-item" onclick="pinClick(this,'gc-r1','r1',0)">
+                <div class="proj-item-row"><div class="proj-item-name">North Sea Ghost Net Retrieval</div><div class="proj-item-loc">📍 North Sea, UK</div></div>
+                <span class="proj-item-cause">🌊 Ocean</span>
+                <div class="proj-item-desc">Removing abandoned fishing nets from critical marine habitats. Funded jointly with Sycomore's Ocean collection.</div>
+              </div>
+              <div class="proj-item" onclick="pinClick(this,'gc-r1','r1',1)">
+                <div class="proj-item-row"><div class="proj-item-name">Mesoamerican Reef Restoration</div><div class="proj-item-loc">📍 Belize</div></div>
+                <span class="proj-item-cause">🌊 Ocean</span>
+                <div class="proj-item-desc">Coral transplantation across the world's second-largest barrier reef with local marine scientists.</div>
+              </div>
+              <div class="proj-item" onclick="pinClick(this,'gc-r1','r1',2)">
+                <div class="proj-item-row"><div class="proj-item-name">Benguela Current Monitoring</div><div class="proj-item-loc">📍 Angola</div></div>
+                <span class="proj-item-cause">🌊 Ocean</span>
+                <div class="proj-item-desc">Long-term monitoring of one of the world's most productive ocean upwelling systems.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Partner 2 ── -->
+      <div class="partner-row">
+        <div class="partner-row-header" onclick="toggleRow('r2')">
+          <div class="partner-left">
+            <div class="partner-logo-placeholder">Partner<br/>Logo</div>
+            <div>
+              <div class="partner-info-name">Partner Two</div>
+              <div class="partner-info-meta">Guardian of Impact · Forests · Since 2025</div>
+            </div>
+          </div>
+          <div class="partner-right">
+            <span class="partner-tier-pill pill-guardian">Guardian</span>
+            <span class="partner-cause-tag">🌿 Forests</span>
+            <span class="partner-toggle-icon" id="icon-r2">+</span>
+          </div>
+        </div>
+        <div class="partner-expanded" id="exp-r2">
+          <div class="globe-side">
+            <div class="globe-search">
+              <span class="globe-search-icon">🔍</span>
+              <input type="text" placeholder="Search location or project…" oninput="filterProj('r2',this.value)"/>
+            </div>
+            <canvas class="globe-canvas" id="gc-r2" width="340" height="340"></canvas>
+            <div class="globe-drag-hint">Drag to rotate · Click pin to highlight project</div>
+          </div>
+          <div class="projects-side">
+            <div class="projects-header">Active Projects</div>
+            <div id="plist-r2">
+              <div class="proj-item" onclick="pinClick(this,'gc-r2','r2',0)">
+                <div class="proj-item-row"><div class="proj-item-name">Amazon Reforestation Initiative</div><div class="proj-item-loc">📍 Brazil</div></div>
+                <span class="proj-item-cause">🌿 Forests</span>
+                <div class="proj-item-desc">Native species reforestation across degraded Amazonian land, working with indigenous communities.</div>
+              </div>
+              <div class="proj-item" onclick="pinClick(this,'gc-r2','r2',1)">
+                <div class="proj-item-row"><div class="proj-item-name">Congo Basin Forest Protection</div><div class="proj-item-loc">📍 Gabon</div></div>
+                <span class="proj-item-cause">🌿 Forests</span>
+                <div class="proj-item-desc">Protecting 50,000 hectares of intact Congo Basin rainforest through community land rights and satellite monitoring.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Partner 3 ── -->
+      <div class="partner-row">
+        <div class="partner-row-header" onclick="toggleRow('r3')">
+          <div class="partner-left">
+            <div class="partner-logo-placeholder">Partner<br/>Logo</div>
+            <div>
+              <div class="partner-info-name">Partner Three</div>
+              <div class="partner-info-meta">Catalyst Sponsor · Endangered Species · Since 2026</div>
+            </div>
+          </div>
+          <div class="partner-right">
+            <span class="partner-tier-pill pill-catalyst">Catalyst</span>
+            <span class="partner-cause-tag">🦁 Endangered Species</span>
+            <span class="partner-toggle-icon" id="icon-r3">+</span>
+          </div>
+        </div>
+        <div class="partner-expanded" id="exp-r3">
+          <div class="globe-side">
+            <div class="globe-search">
+              <span class="globe-search-icon">🔍</span>
+              <input type="text" placeholder="Search location or project…" oninput="filterProj('r3',this.value)"/>
+            </div>
+            <canvas class="globe-canvas" id="gc-r3" width="340" height="340"></canvas>
+            <div class="globe-drag-hint">Drag to rotate · Click pin to highlight project</div>
+          </div>
+          <div class="projects-side">
+            <div class="projects-header">Active Projects</div>
+            <div id="plist-r3">
+              <div class="proj-item" onclick="pinClick(this,'gc-r3','r3',0)">
+                <div class="proj-item-row"><div class="proj-item-name">Maasai Mara Wildlife Corridor</div><div class="proj-item-loc">📍 Kenya</div></div>
+                <span class="proj-item-cause">🦁 Species</span>
+                <div class="proj-item-desc">Restoring migratory corridors for wildebeest, elephants and big cats across Maasai Mara landscapes.</div>
+              </div>
+              <div class="proj-item" onclick="pinClick(this,'gc-r3','r3',1)">
+                <div class="proj-item-row"><div class="proj-item-name">Snow Leopard Habitat Programme</div><div class="proj-item-loc">📍 Bhutan</div></div>
+                <span class="proj-item-cause">🦁 Species</span>
+                <div class="proj-item-desc">Protecting high-altitude snow leopard habitats through anti-poaching patrols and community incentives.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /partner-rows -->
+  </div>
+</section>
+
+<!-- ══ NEWSLETTER — matches screenshot 3 ══ -->
+<div class="newsletter-wrap">
+  <div class="newsletter-inner">
+    <div class="nl-row">
+      <input type="email" placeholder="Enter your email"/>
+      <span class="nl-arrow">→</span>
+    </div>
+    <div class="nl-copy">
+      <p>Subscribe to our newsletter.</p>
+      <p>Be the first to hear about new causes/collections, art pieces and more.</p>
+      <p>By subscribing you agree to our <a href="#">privacy policy</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER — matches screenshot 3 ══ -->
+<footer>
+  <div class="footer-tree">[ Sycomore<br/>tree logo ]</div>
+  <div class="footer-logo-name">SYCOMORE<sup style="font-size:13px;">©</sup></div>
+  <div class="footer-tagline">Art Fixing the World</div>
+  <div class="footer-addr">7 Bell Yard, The Strand, London. England. UK Co. No.12436937</div>
+  <div class="footer-links">
+    <a href="#">Terms of Use</a>
+    <a href="#">Shipping Conditions</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Exchange and Return Policy</a>
+    <a href="#">Track Your Order</a>
+  </div>
+</footer>
+
+<!-- ══ JAVASCRIPT ══ -->
+<script>
+/* ── Globe data ── */
+const PINS = {
+  r1:[{lat:55,lon:3},{lat:17,lon:-88},{lat:-9,lon:13}],
+  r2:[{lat:-3,lon:-62},{lat:0,lon:9}],
+  r3:[{lat:-1,lon:37},{lat:27,lon:90}]
+};
+
+const GLOBES = {};
+
+/* ── Globe renderer ── */
+function ll2xyz(lat,lon,rotX,rotY,r){
+  const phi=(90-lat)*Math.PI/180;
+  const theta=(lon+rotY)*Math.PI/180;
+  let x=r*Math.sin(phi)*Math.cos(theta);
+  let y=r*Math.cos(phi);
+  let z=r*Math.sin(phi)*Math.sin(theta);
+  const cx=Math.cos(rotX*Math.PI/180),sx=Math.sin(rotX*Math.PI/180);
+  return{x,y:y*cx-z*sx,z:y*sx+z*cx};
+}
+
+function drawGlobe(id,rid,rotX,rotY,hl){
+  const cv=document.getElementById(id);
+  if(!cv)return;
+  const ctx=cv.getContext('2d');
+  const W=cv.width,H=cv.height,cx=W/2,cy=H/2;
+  const r=Math.min(W,H)/2-14;
+  ctx.clearRect(0,0,W,H);
+
+  // bg
+  ctx.fillStyle='#07101f';ctx.fillRect(0,0,W,H);
+  const g=ctx.createRadialGradient(cx,cy,r*.2,cx,cy,r);
+  g.addColorStop(0,'rgba(45,90,61,.15)');g.addColorStop(1,'rgba(7,16,31,0)');
+  ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();
+
+  // grid lines
+  ctx.strokeStyle='rgba(255,255,255,.07)';ctx.lineWidth=.5;
+  for(let lat=-60;lat<=60;lat+=30){
+    ctx.beginPath();let f=true;
+    for(let lon=-180;lon<=180;lon+=3){
+      const p=ll2xyz(lat,lon,rotX,rotY,r);
+      if(p.z<0){f=true;continue;}
+      const sx=cx+p.x,sy=cy-p.y;
+      f?(ctx.moveTo(sx,sy),f=false):ctx.lineTo(sx,sy);
+    }ctx.stroke();
+  }
+  for(let lon=0;lon<360;lon+=30){
+    ctx.beginPath();let f=true;
+    for(let lat=-90;lat<=90;lat+=3){
+      const p=ll2xyz(lat,lon,rotX,rotY,r);
+      if(p.z<0){f=true;continue;}
+      const sx=cx+p.x,sy=cy-p.y;
+      f?(ctx.moveTo(sx,sy),f=false):ctx.lineTo(sx,sy);
+    }ctx.stroke();
+  }
+
+  // outline
+  ctx.strokeStyle='rgba(45,90,61,.6)';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();
+
+  // pins
+  (PINS[rid]||[]).forEach((coord,i)=>{
+    const p=ll2xyz(coord.lat,coord.lon,rotX,rotY,r);
+    if(p.z<0)return;
+    const px=cx+p.x,py=cy-p.y,isHL=(hl===i);
+    if(isHL){
+      ctx.beginPath();ctx.arc(px,py,15,0,Math.PI*2);
+      ctx.strokeStyle='rgba(45,90,61,.3)';ctx.lineWidth=1;ctx.stroke();
+    }
+    ctx.beginPath();ctx.arc(px,py,isHL?9:6,0,Math.PI*2);
+    ctx.fillStyle=isHL?'#fff':'#2d5a3d';ctx.fill();
+    ctx.strokeStyle=isHL?'#2d5a3d':'rgba(45,90,61,.5)';
+    ctx.lineWidth=isHL?2:1;ctx.stroke();
+    ctx.fillStyle=isHL?'#111':'#fff';
+    ctx.font=`bold ${isHL?9:8}px "Courier New"`;
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(i+1,px,py);
+  });
+}
+
+function initGlobe(canvasId,rid){
+  if(GLOBES[canvasId])return;
+  const s={rotX:20,rotY:0,drag:false,lx:0,ly:0,hl:null,af:null};
+  GLOBES[canvasId]={s,rid};
+  const cv=document.getElementById(canvasId);
+  if(!cv)return;
+  function render(){drawGlobe(canvasId,rid,s.rotX,s.rotY,s.hl);}
+  function spin(){if(!s.drag){s.rotY+=.25;render();}s.af=requestAnimationFrame(spin);}
+  s.af=requestAnimationFrame(spin);
+  cv.onmousedown=e=>{s.drag=true;s.lx=e.clientX;s.ly=e.clientY;};
+  window.addEventListener('mouseup',()=>s.drag=false);
+  cv.onmousemove=e=>{
+    if(!s.drag)return;
+    s.rotY+=(e.clientX-s.lx)*.5;
+    s.rotX+=Math.max(-60,Math.min(60,(e.clientY-s.ly)*.3));
+    s.rotX=Math.max(-60,Math.min(60,s.rotX));
+    s.lx=e.clientX;s.ly=e.clientY;render();
+  };
+  cv.addEventListener('touchstart',e=>{s.drag=true;s.lx=e.touches[0].clientX;s.ly=e.touches[0].clientY;e.preventDefault();},{passive:false});
+  cv.addEventListener('touchend',()=>s.drag=false);
+  cv.addEventListener('touchmove',e=>{
+    if(!s.drag)return;
+    s.rotY+=(e.touches[0].clientX-s.lx)*.5;
+    s.rotX+=Math.max(-60,Math.min(60,(e.touches[0].clientY-s.ly)*.3));
+    s.rotX=Math.max(-60,Math.min(60,s.rotX));
+    s.lx=e.touches[0].clientX;s.ly=e.touches[0].clientY;render();e.preventDefault();
+  },{passive:false});
+  cv.onclick=e=>{
+    const rect=cv.getBoundingClientRect();
+    const mx=(e.clientX-rect.left)*(cv.width/rect.width);
+    const my=(e.clientY-rect.top)*(cv.height/rect.height);
+    const cx2=cv.width/2,cy2=cv.height/2,r2=Math.min(cv.width,cv.height)/2-14;
+    let hit=null;
+    (PINS[rid]||[]).forEach((coord,i)=>{
+      const p=ll2xyz(coord.lat,coord.lon,s.rotX,s.rotY,r2);
+      if(p.z<0)return;
+      if(Math.hypot(mx-(cx2+p.x),my-(cy2-p.y))<14)hit=i;
+    });
+    if(hit!==null){
+      s.hl=hit;
+      const pl=document.getElementById('plist-'+rid);
+      if(pl){
+        pl.querySelectorAll('.proj-item').forEach((el,i)=>el.classList.toggle('lit',i===hit));
+        pl.querySelectorAll('.proj-item')[hit]?.scrollIntoView({behavior:'smooth',block:'nearest'});
+      }
+      render();
+    }
+  };
+}
+
+/* ── Toggle accordion row ── */
+function toggleRow(rid){
+  const exp=document.getElementById('exp-'+rid);
+  const icon=document.getElementById('icon-'+rid);
+  const hdr=exp.previousElementSibling;
+  const isOpen=exp.classList.contains('open');
+  // close all
+  document.querySelectorAll('.partner-expanded').forEach(e=>e.classList.remove('open'));
+  document.querySelectorAll('.partner-row-header').forEach(h=>h.classList.remove('open'));
+  document.querySelectorAll('.partner-toggle-icon').forEach(i=>{i.classList.remove('open');i.textContent='+';});
+  if(!isOpen){
+    exp.classList.add('open');
+    hdr.classList.add('open');
+    icon.classList.add('open');
+    setTimeout(()=>initGlobe('gc-'+rid,rid),60);
+  }
+}
+
+/* ── Pin click from project list ── */
+function pinClick(el,gcId,rid,idx){
+  el.parentElement.querySelectorAll('.proj-item').forEach(p=>p.classList.remove('lit'));
+  el.classList.add('lit');
+  const g=GLOBES[gcId];
+  if(g){
+    g.s.hl=idx;
+    const coord=PINS[rid][idx];
+    if(coord){g.s.rotY=-coord.lon;g.s.rotX=coord.lat*.4;}
+  }
+}
+
+/* ── Filter projects by search ── */
+function filterProj(rid,q){
+  const pl=document.getElementById('plist-'+rid);
+  if(!pl)return;
+  pl.querySelectorAll('.proj-item').forEach(el=>{
+    el.style.display=el.textContent.toLowerCase().includes(q.toLowerCase())?'block':'none';
+  });
+}
+
+/* ── Tier card selection ── */
+function pickTier(t){
+  ['pioneer','guardian','catalyst'].forEach(n=>{
+    document.getElementById('card-'+n).classList.toggle('dim',n!==t);
+    document.getElementById('card-'+n).classList.toggle('selected',n===t);
+    const btn=document.getElementById('btn-'+n);
+    btn.classList.toggle('selected',n===t);
+    btn.textContent=(n===t)?'✓ SELECTED':'SELECT';
+  });
+}
+
+/* ── Submit ── */
+function submitForm(btn){
+  btn.textContent='✓ Sent — we\'ll be in touch within 48 hours';
+  btn.classList.add('sent');
+  btn.disabled=true;
+}
+</script>
+</body>
+</html>
