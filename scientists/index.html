@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sycomore — Scientists</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Georgia', serif; background: #fff; color: #111; }
+
+/* ══════════════════════════════
+   WIREFRAME META BAR
+══════════════════════════════ */
+.hub-bar {
+  background: #111; padding: 10px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 3px solid #444;
+}
+.hub-bar-left { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #666; }
+.hub-bar-left strong { color: #ccc; }
+.wf-badge { background: #333; color: #ccc; font-family: 'Courier New', monospace; font-size: 9px; letter-spacing: .1em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+
+/* ══════════════════════════════
+   BLACK & WHITE SITE NAV
+══════════════════════════════ */
+.site-nav {
+  background: #fff; border-bottom: 1.5px solid #111;
+  padding: 0 40px; height: 80px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-logo { display: flex; align-items: center; gap: 12px; }
+.nav-logo-img {
+  width: 52px; height: 52px;
+  background: #111; display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-img svg { display: block; }
+.nav-logo-text-wrap { display: flex; flex-direction: column; gap: 1px; }
+.nav-logo-name { font-size: 15px; letter-spacing: .2em; font-family: 'Courier New', monospace; font-weight: bold; color: #111; line-height: 1; }
+.nav-logo-sub  { font-size: 8px; letter-spacing: .18em; color: #777; font-family: 'Courier New', monospace; text-transform: uppercase; }
+.nav-icons { display: flex; align-items: center; gap: 24px; }
+.nav-icon { position: relative; cursor: pointer; }
+.nav-icon svg { display: block; }
+.cart-badge { position: absolute; top: -6px; right: -8px; background: #111; color: #fff; font-size: 8px; width: 15px; height: 15px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Courier New', monospace; }
+
+/* ══════════════════════════════
+   TWO VIEWS: LIST + DETAIL
+══════════════════════════════ */
+.view { display: none; }
+.view.active { display: flex; flex-direction: column; min-height: calc(100vh - 44px - 80px); }
+
+/* ══════════════════════════════
+   LIST VIEW
+══════════════════════════════ */
+#listView { flex-direction: column; align-items: stretch; }
+
+/* Two-column header row: big title left, manifesto heading right */
+.list-top-row {
+  display: grid; grid-template-columns: 420px 1fr;
+  border-bottom: 1px solid #ddd;
+}
+.list-title-left {
+  padding: 40px 32px 28px;
+  border-right: 1px solid #ddd;
+}
+.list-title-left h1 { font-size: 52px; font-weight: 700; color: #111; letter-spacing: -.02em; }
+
+/* Layout — two columns, fills full remaining height */
+.list-layout {
+  display: grid; grid-template-columns: 420px 1fr;
+  flex: 1;
+  min-height: calc(100vh - 44px - 80px);
+}
+
+/* Left sidebar */
+.left-col {
+  border-right: 1px solid #ddd;
+  display: flex; flex-direction: column;
+  position: sticky; top: 80px;
+  height: calc(100vh - 80px);
+  overflow: hidden; background: #fff;
+}
+
+/* Clean search bar — exactly like screenshot 2 */
+.search-area {
+  padding: 20px 28px 0;
+  flex-shrink: 0;
+}
+.search-row {
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1.5px solid #888; padding-bottom: 13px;
+}
+.search-row input {
+  flex: 1; border: none; outline: none;
+  font-size: 17px; font-family: 'Georgia', serif; color: #111; background: transparent;
+}
+.search-row input::placeholder { color: #aaa; font-size: 17px; }
+.search-icon { cursor: pointer; flex-shrink: 0; }
+
+/* Filter chips sit below the search bar, above the list */
+.filter-chips {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  padding: 14px 28px 12px;
+  border-bottom: 1px solid #eee;
+  flex-shrink: 0;
+}
+.chip {
+  font-family: 'Courier New', monospace; font-size: 9px;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 20px;
+  border: 1px solid #ccc; color: #888; cursor: pointer; transition: all .14s;
+}
+.chip:hover { background: #111; color: #fff; border-color: #111; }
+.chip.on { background: #111; color: #fff; border-color: #111; }
+
+.sci-list { overflow-y: auto; flex: 1; }
+.sci-list::-webkit-scrollbar { width: 3px; }
+.sci-list::-webkit-scrollbar-thumb { background: #ccc; }
+
+.letter-hdr {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: #eee; color: #555;
+  font-size: 14px; font-weight: bold; font-family: 'Courier New', monospace;
+  margin: 14px 24px 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.sci-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 24px; cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: background .1s, border-color .1s;
+}
+.sci-row:hover { background: #f5f5f5; border-left-color: #111; }
+.sci-row.active { background: #f0f0f0; border-left-color: #111; }
+.sci-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #ddd; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Courier New', monospace; font-size: 12px;
+  color: #777; border: 2px solid #eee; font-weight: bold;
+  overflow: hidden;
+}
+.sci-row-name { font-size: 15px; font-weight: bold; color: #111; line-height: 1.3; }
+.sci-row-sub  { font-size: 11px; color: #888; font-family: 'Courier New', monospace; margin-top: 2px; }
+
+/* Right manifesto */
+.right-col {
+  padding: 52px 60px;
+  overflow-y: auto;
+  max-height: calc(100vh - 80px);
+}
+.right-col::-webkit-scrollbar { width: 3px; }
+.right-col::-webkit-scrollbar-thumb { background: #ccc; }
+.manifesto { max-width: 700px; margin: 0 auto; }
+.manifesto-heading { font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 28px; color: #111; }
+.manifesto-body { font-size: 18px; line-height: 1.95; color: #222; text-align: center; }
+.manifesto-body p { margin-bottom: 26px; }
+.manifesto-cta {
+  margin-top: 36px; padding: 22px 26px;
+  background: #f5f5f5; border-left: 4px solid #111;
+  text-align: left;
+}
+.manifesto-cta p { font-size: 14px; color: #444; line-height: 1.75; text-align: left; }
+.manifesto-cta a { color: #111; }
+.mol-deco { text-align: center; margin-bottom: 28px; opacity: .1; }
+
+/* ══════════════════════════════
+   DETAIL VIEW — full page
+   matches sycomore.org/scientist/karen-kvale/
+══════════════════════════════ */
+#detailView {
+  flex-direction: column;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  background: #f8f8f8; border-bottom: 1px solid #ddd;
+  padding: 10px 40px;
+  display: flex; align-items: center; gap: 7px;
+}
+.bc { font-family: 'Courier New', monospace; font-size: 11px; color: #999; cursor: pointer; }
+.bc:hover { color: #111; text-decoration: underline; }
+.bc.cur { color: #111; }
+.bcs { color: #ccc; font-size: 11px; }
+
+/* "Scientist" label — centred, exact match */
+.detail-label {
+  text-align: center; padding: 28px 40px 6px;
+  font-size: 11px; font-family: 'Courier New', monospace;
+  letter-spacing: .22em; text-transform: uppercase; color: #999;
+}
+.detail-label-big {
+  text-align: center;
+  font-size: 36px; font-weight: 700; color: #111;
+  padding: 8px 40px 32px; letter-spacing: -.01em;
+}
+
+/* Main content block */
+.detail-content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 0;
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 40px 60px;
+  width: 100%;
+}
+
+/* Photo column */
+.detail-photo-col {
+  padding-right: 40px;
+}
+.detail-photo-box {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: #e8e8e8;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Courier New', monospace; font-size: 38px;
+  font-weight: bold; color: #bbb;
+  border: 1px solid #ddd;
+}
+
+/* Info column */
+.detail-info-col { padding-top: 4px; }
+.detail-sci-name { font-size: 30px; font-weight: normal; color: #111; margin-bottom: 4px; letter-spacing: -.01em; }
+.detail-credential {
+  display: inline-block;
+  font-family: 'Courier New', monospace; font-size: 10px;
+  letter-spacing: .14em; text-transform: uppercase;
+  background: #111; color: #fff;
+  padding: 4px 12px; border-radius: 2px; margin-bottom: 20px;
+}
+.follow-row { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.follow-btn {
+  background: #111; color: #fff;
+  font-family: 'Courier New', monospace; font-size: 11px;
+  padding: 10px 26px; border: none; cursor: pointer;
+  letter-spacing: .1em; text-transform: uppercase;
+  transition: background .15s;
+}
+.follow-btn:hover { background: #444; }
+.follow-btn.following { background: #fff; color: #111; border: 1.5px solid #111; }
+.follow-count { font-family: 'Courier New', monospace; font-size: 13px; color: #aaa; }
+.detail-bio-text { font-size: 15px; line-height: 1.9; color: #333; }
+.detail-bio-text p { margin-bottom: 16px; }
+.detail-bio-text p:last-child { margin-bottom: 0; }
+
+/* Tabs */
+.detail-tabs-row {
+  max-width: 1100px; margin: 0 auto; padding: 0 40px;
+  display: flex; border-bottom: 1.5px solid #111; margin-bottom: 0;
+}
+.dtab {
+  font-family: 'Courier New', monospace; font-size: 11px;
+  letter-spacing: .10em; text-transform: uppercase; color: #aaa;
+  padding: 14px 22px; cursor: pointer;
+  border-bottom: 2px solid transparent; margin-bottom: -1.5px;
+  transition: all .14s;
+}
+.dtab:hover { color: #111; }
+.dtab.active { color: #111; border-bottom-color: #111; }
+.dtab-pane { display: none; }
+.dtab-pane.active { display: block; }
+
+/* Tab content */
+.tabs-content { max-width: 1100px; margin: 0 auto; padding: 32px 40px 60px; }
+
+/* Research pane */
+.empty-state {
+  text-align: center; padding: 48px 20px;
+  border: 1px dashed #ccc; background: #fafafa;
+}
+.empty-state p { font-size: 14px; color: #bbb; margin-bottom: 8px; }
+.empty-state small { font-family: 'Courier New', monospace; font-size: 10px; color: #ddd; letter-spacing: .08em; }
+
+/* About tab */
+.about-grid { display: grid; grid-template-columns: 1fr 220px; gap: 40px; }
+.about-bio { font-size: 14px; line-height: 1.9; color: #333; }
+.about-bio p { margin-bottom: 14px; }
+.facts-sidebar h4 {
+  font-family: 'Courier New', monospace; font-size: 10px;
+  letter-spacing: .14em; text-transform: uppercase; color: #aaa;
+  margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1.5px solid #111;
+}
+.fact-row { padding: 9px 0; border-bottom: 1px solid #eee; }
+.fact-row:last-child { border-bottom: none; }
+.fact-label { font-family: 'Courier New', monospace; font-size: 9px; color: #bbb; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 3px; }
+.fact-val { font-size: 13px; color: #111; line-height: 1.4; }
+.etag-wrap { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+.etag { background: #f0f0f0; color: #444; border: 1px solid #ddd; font-family: 'Courier New', monospace; font-size: 9px; padding: 3px 8px; letter-spacing: .04em; }
+
+/* Stats bar */
+.stats-bar {
+  display: flex; gap: 2px;
+  max-width: 1100px; margin: 0 auto 0;
+  padding: 0 40px;
+  border-top: 1px solid #eee; border-bottom: 1.5px solid #111;
+}
+.stat-item {
+  flex: 1; padding: 16px 20px; background: #fff;
+  border-right: 1px solid #eee; text-align: center;
+}
+.stat-item:last-child { border-right: none; }
+.stat-num { font-size: 26px; font-weight: bold; color: #111; margin-bottom: 4px; }
+.stat-lbl { font-family: 'Courier New', monospace; font-size: 9px; color: #aaa; letter-spacing: .10em; text-transform: uppercase; }
+
+/* Newsletter */
+.newsletter-bar {
+  background: #f5f5f5; border-top: 1.5px solid #111;
+  padding: 28px 40px;
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.nl-text { font-size: 13px; color: #555; flex: 1; min-width: 200px; line-height: 1.5; }
+.nl-input {
+  border: 1px solid #ccc; padding: 10px 14px;
+  font-family: 'Georgia', serif; font-size: 13px;
+  flex: 1; min-width: 200px; max-width: 300px; outline: none;
+  color: #111;
+}
+.nl-input:focus { border-color: #111; }
+.nl-btn {
+  background: #111; color: #fff;
+  font-family: 'Courier New', monospace; font-size: 10px;
+  padding: 10px 22px; border: none; cursor: pointer;
+  letter-spacing: .10em; text-transform: uppercase;
+}
+
+/* ══════════════════════════════
+   BLACK & WHITE FOOTER
+══════════════════════════════ */
+.site-footer {
+  background: #111; color: #666;
+  padding: 28px 40px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  border-top: none;
+}
+.footer-logo {
+  display: flex; align-items: center; gap: 12px;
+}
+.footer-logo-img {
+  width: 44px; height: 44px; background: #333;
+  display: flex; align-items: center; justify-content: center;
+}
+.footer-logo-name { font-size: 13px; letter-spacing: .18em; font-family: 'Courier New', monospace; color: #ccc; }
+.footer-logo-sub  { font-size: 8px; letter-spacing: .14em; color: #666; font-family: 'Courier New', monospace; text-transform: uppercase; }
+.footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+.footer-link { font-family: 'Courier New', monospace; font-size: 10px; color: #555; cursor: pointer; letter-spacing: .05em; transition: color .14s; }
+.footer-link:hover { color: #ccc; }
+.footer-addr { font-family: 'Courier New', monospace; font-size: 10px; color: #444; }
+
+/* Transitions */
+.fade-in { animation: fi .22s ease; }
+@keyframes fi { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+</style>
+</head>
+<body>
+
+<!-- Meta bar -->
+<div class="hub-bar">
+  <div class="hub-bar-left">⊞ Sycomore · Design System · <strong>Scientists Page Wireframe</strong> · scientists/index.html</div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span class="wf-badge">v1.0 · Draft · March 2026</span>
+  </div>
+</div>
+
+<!-- ══ BLACK & WHITE SITE NAV ══ -->
+<div class="site-nav">
+  <div class="nav-logo">
+    <div class="nav-logo-img">
+      <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+        <rect x="13" y="16" width="6" height="14" fill="#fff"/>
+        <rect x="4"  y="8"  width="24" height="3" fill="#fff"/>
+        <rect x="8"  y="4"  width="3"  height="7" fill="#fff"/>
+        <rect x="21" y="4"  width="3"  height="7" fill="#fff"/>
+        <rect x="4"  y="3"  width="3"  height="3" fill="#fff"/>
+        <rect x="25" y="3"  width="3"  height="3" fill="#fff"/>
+      </svg>
+    </div>
+    <div class="nav-logo-text-wrap">
+      <div class="nav-logo-name">SYCOMORE®</div>
+      <div class="nav-logo-sub">Art Fixing the World</div>
+    </div>
+  </div>
+  <div class="nav-icons">
+    <!-- Cart -->
+    <div class="nav-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+      </svg>
+      <span class="cart-badge">0</span>
+    </div>
+    <!-- Search -->
+    <div class="nav-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+    </div>
+    <!-- Hamburger -->
+    <div class="nav-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round">
+        <line x1="3" y1="6"  x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     VIEW 1: LIST PAGE
+══════════════════════════════════════ -->
+<div id="listView" class="view active">
+  <div class="list-layout">
+
+    <!-- LEFT SIDEBAR — title + search + chips + list -->
+    <div class="left-col">
+
+      <!-- "Scientist" heading lives inside left col, above search, matching screenshot 2 -->
+      <div style="padding: 32px 28px 20px; flex-shrink:0; border-bottom: 1px solid #eee;">
+        <h1 style="font-size:48px; font-weight:700; color:#111; letter-spacing:-.02em; line-height:1;">Scientist</h1>
+      </div>
+
+      <!-- Clean search bar — exactly like screenshot 2 -->
+      <div class="search-area">
+        <div class="search-row">
+          <input type="text" id="searchInput" placeholder="Search Scientist" oninput="filterSci(this.value)"/>
+          <div class="search-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter chips right below search -->
+      <div class="filter-chips">
+        <div class="chip on"  onclick="filterField(this,'all')">All</div>
+        <div class="chip" onclick="filterField(this,'marine')">Marine</div>
+        <div class="chip" onclick="filterField(this,'ecology')">Ecology</div>
+        <div class="chip" onclick="filterField(this,'climate')">Climate</div>
+        <div class="chip" onclick="filterField(this,'biology')">Biology</div>
+        <div class="chip" onclick="filterField(this,'social')">Social Sci.</div>
+      </div>
+
+      <!-- Scrollable scientist list -->
+      <div class="sci-list" id="sciList"></div>
+    </div>
+
+    <!-- RIGHT: MANIFESTO -->
+    <div class="right-col">
+      <div class="manifesto">
+        <div class="manifesto-heading">We are at a critical moment.</div>
+        <div class="manifesto-body">
+          <p>The spread of misinformation is undermining the integrity of our systems and creating confusion where clarity is urgently needed. In the face of these challenges, we must ground ourselves in what is real, what is true, and what is meaningful — this is how we begin to solve the complex problems before us.</p>
+          <p>To protect our planet and ensure a sustainable future, we must return to the fundamentals of knowledge — rooted in facts, truth, and shared understanding. It's only through this solid foundation that we can move forward with purpose.</p>
+          <p>At Sycomore, we are building a bridge between science and art to create powerful, accurate solutions. Our scientists work directly with artists to provide clear insights into the challenges we face and the potential pathways to solutions.</p>
+          <p>Our scientists also play a crucial role in guiding where we focus our resources. By co-curating project briefs, validating proposals, and assessing every initiative before we commit funding, they ensure that every effort we make is as effective and meaningful as possible.</p>
+        </div>
+        <div class="manifesto-cta">
+          <p>If you are a scientist looking to earn extra income and committed to making a tangible difference, we invite you to join us. Please send your CV and covering letter to <a href="mailto:info@sycomo.re">info@sycomo.re</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     VIEW 2: INDIVIDUAL SCIENTIST PAGE
+     Matches sycomore.org/scientist/karen-kvale/
+══════════════════════════════════════ -->
+<div id="detailView" class="view">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <span class="bc" onclick="goBack()">Home</span>
+    <span class="bcs">›</span>
+    <span class="bc" onclick="goBack()">Scientists</span>
+    <span class="bcs">›</span>
+    <span class="bc cur" id="bcName">—</span>
+  </div>
+
+  <!-- "Scientist" label (centred, like the real page) -->
+  <div class="detail-label">Scientist</div>
+
+  <!-- Main content: photo left, info right -->
+  <div class="detail-content fade-in">
+
+    <!-- Photo col -->
+    <div class="detail-photo-col">
+      <div class="detail-photo-box" id="dPhoto">BL</div>
+    </div>
+
+    <!-- Info col -->
+    <div class="detail-info-col">
+      <div class="detail-sci-name" id="dName">—</div>
+      <div class="detail-credential" id="dCred">PHD</div>
+      <div class="follow-row">
+        <button class="follow-btn" id="followBtn" onclick="toggleFollow(this)">Follow</button>
+        <span class="follow-count" id="followCount">0</span>
+      </div>
+      <div class="detail-bio-text" id="dBio"></div>
+    </div>
+
+  </div>
+
+  <!-- Stats bar -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num" id="dStat1">—</div><div class="stat-lbl">Publications</div></div>
+    <div class="stat-item"><div class="stat-num" id="dStat2">—</div><div class="stat-lbl">Years Active</div></div>
+    <div class="stat-item"><div class="stat-num" id="dStat3">—</div><div class="stat-lbl">Collaborations</div></div>
+    <div class="stat-item"><div class="stat-num" id="dStat4">—</div><div class="stat-lbl">Causes</div></div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="detail-tabs-row">
+    <div class="dtab active" onclick="switchTab(this,'research')">Research</div>
+    <div class="dtab"        onclick="switchTab(this,'about')">About</div>
+    <div class="dtab"        onclick="switchTab(this,'collab')">Collaborations</div>
+  </div>
+
+  <div class="tabs-content">
+    <!-- Research -->
+    <div class="dtab-pane active" id="pane-research">
+      <div class="empty-state">
+        <p>No research papers currently listed.</p>
+        <small>RESEARCH LINKS WILL APPEAR HERE WHEN ADDED VIA WORDPRESS</small>
+      </div>
+    </div>
+    <!-- About -->
+    <div class="dtab-pane" id="pane-about">
+      <div class="about-grid">
+        <div class="about-bio" id="dAboutBio"></div>
+        <div class="facts-sidebar">
+          <h4>Quick Facts</h4>
+          <div class="fact-row"><div class="fact-label">Field</div><div class="fact-val" id="fField">—</div></div>
+          <div class="fact-row"><div class="fact-label">Institution</div><div class="fact-val" id="fInst">—</div></div>
+          <div class="fact-row"><div class="fact-label">Location</div><div class="fact-val" id="fLoc">—</div></div>
+          <div class="fact-row"><div class="fact-label">Qualification</div><div class="fact-val" id="fQual">—</div></div>
+          <div class="fact-row"><div class="fact-label">Cause Focus</div><div class="fact-val" id="fCause">—</div></div>
+          <div class="fact-row">
+            <div class="fact-label">Expertise</div>
+            <div class="etag-wrap" id="fTags"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Collaborations -->
+    <div class="dtab-pane" id="pane-collab">
+      <div class="empty-state">
+        <p>No artist collaborations listed yet.</p>
+        <small>LINKED ARTWORKS AND ARTIST PARTNERSHIPS WILL APPEAR HERE</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Newsletter -->
+  <div class="newsletter-bar">
+    <div class="nl-text">Subscribe to our newsletter. Be the first to hear about new causes, collections, art pieces and more. By subscribing you agree to our privacy policy.</div>
+    <input class="nl-input" type="email" placeholder="Email address"/>
+    <button class="nl-btn">Submit</button>
+  </div>
+
+</div><!-- /detailView -->
+
+<!-- ══ BLACK & WHITE FOOTER ══ -->
+<div class="site-footer">
+  <div class="footer-logo">
+    <div class="footer-logo-img">
+      <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+        <rect x="13" y="16" width="6" height="14" fill="#fff"/>
+        <rect x="4"  y="8"  width="24" height="3" fill="#fff"/>
+        <rect x="8"  y="4"  width="3"  height="7" fill="#fff"/>
+        <rect x="21" y="4"  width="3"  height="7" fill="#fff"/>
+        <rect x="4"  y="3"  width="3"  height="3" fill="#fff"/>
+        <rect x="25" y="3"  width="3"  height="3" fill="#fff"/>
+      </svg>
+    </div>
+    <div>
+      <div class="footer-logo-name">SYCOMORE®</div>
+      <div class="footer-logo-sub">Art Fixing the World</div>
+    </div>
+  </div>
+  <div class="footer-links">
+    <div class="footer-link">Terms of Use</div>
+    <div class="footer-link">Shipping Conditions</div>
+    <div class="footer-link">Privacy Policy</div>
+    <div class="footer-link">Exchange &amp; Return Policy</div>
+    <div class="footer-link">Track Your Order</div>
+    <div class="footer-link">Contact</div>
+  </div>
+  <div class="footer-addr">7 Bell Yard, The Strand, London. England. UK Co. No.12436937</div>
+</div>
+
+<script>
+/* ── DATA ── */
+const SCIENTISTS = [
+  { name:'Dr Anandi Tamby',       initials:'AT', cred:'PHD', field:'Marine Biology',            tag:'marine',  institution:'University College London',         location:'United Kingdom', qual:'PhD Marine Biology',          cause:'Ocean Conservation',    ipo:80, pubs:14, since:2010, collabs:3, expertise:['Marine Ecology','Coral Reefs','Biodiversity'],              bio:"Dr Anandi Tamby is a marine biologist specialising in the ecology of coral reef ecosystems and the impacts of ocean warming on reef biodiversity.\n\nShe works closely with Sycomore's artist network to translate complex marine science into compelling visual narratives, helping audiences understand the urgency of ocean conservation.\n\nHer research has been published in leading peer-reviewed journals, and she has conducted fieldwork across the Indian Ocean, the Caribbean and the Pacific." },
+  { name:'Dr Bethan Lang',         initials:'BL', cred:'PHD · Lead Scientist', field:'Marine Biology', tag:'marine', institution:'James Cook University / Sycomore', location:'United Kingdom', qual:'PhD Marine Biology',          cause:'Marine Conservation',   ipo:88, pubs:22, since:2014, collabs:6, expertise:['Coral Reefs','Crown-of-Thorns','Kelp Restoration','Seahorse Conservation'], bio:"Dr Bethan Lang is a Senior Sycomore Scientist and our Lead Marine Scientist. Bethan is a marine biologist from the UK, who completed her PhD a stone's throw from the Great Barrier Reef in Townsville, Australia.\n\nHere, Bethan studied the impacts of climate change on the infamous coral-feeding crown-of-thorns starfish, while also assisting with research projects on the ecology of epaulette sharks and other fishes.\n\nBethan has also worked on kelp and seagrass restoration and seahorse conservation projects in Sydney, as well as coral reef conservation projects in Indonesia, Madagascar and Honduras. Bethan is an avid diver, sailor, and general ocean lover." },
+  { name:'Dr Carlos Rebolloso',    initials:'CR', cred:'PHD', field:'Environmental Science',     tag:'climate', institution:'UNAM Mexico',                        location:'Mexico',          qual:'PhD Environmental Science',   cause:'Climate Action',        ipo:74, pubs:18, since:2013, collabs:4, expertise:['Climate Modelling','Atmospheric Science','Carbon Cycles'],     bio:"Dr Carlos Rebolloso is an environmental scientist specialising in atmospheric chemistry and climate modelling.\n\nHis research examines the feedback loops between land-use change and regional climate patterns across Latin America, with a particular focus on the role of tropical forests as carbon sinks.\n\nAt Sycomore, he works with artists to develop projects that communicate the science of climate change to broad, non-specialist audiences." },
+  { name:'Dr Jorgelina Asmus',     initials:'JA', cred:'PHD', field:'Ecology & Conservation',   tag:'ecology', institution:'National University of Rosario',      location:'Argentina',       qual:'PhD Biological Sciences',     cause:'Wetland Conservation',  ipo:81, pubs:26, since:2009, collabs:5, expertise:['Wetland Ecology','Biodiversity','Environmental Change','Fast Fashion'], bio:"Dr Jorgelina Asmus holds a PhD in Biological Sciences and is a professor of Ecology and Conservation Biology at the National University of Rosario, Argentina.\n\nHer work focuses on wetland ecology and biodiversity conservation, with an emphasis on analysing ecological responses to environmental change.\n\nShe is part of the Sycomore – Fast Fashion group, where she brings a critical ecological perspective on the environmental impacts of the fashion industry and promotes sustainable solutions grounded in science and conservation." },
+  { name:'Dr Josephine Queffelec', initials:'JQ', cred:'PHD', field:'Marine Law & Policy',      tag:'marine',  institution:'University of Brest',                location:'France',          qual:'PhD Environmental Law',       cause:'Ocean Policy',          ipo:76, pubs:15, since:2011, collabs:3, expertise:['Ocean Governance','Marine Policy','Plastic Pollution','International Law'], bio:"Dr Josephine Queffelec is a specialist in marine environmental law and ocean governance based in Brest, France.\n\nHer research focuses on the legal and policy frameworks governing ocean plastic pollution, with particular expertise in the UN's global plastics treaty negotiations.\n\nAt Sycomore, she helps ensure that artist-scientist collaborations addressing ocean health are grounded in an accurate understanding of the regulatory landscape and the international policy levers available to address it." },
+  { name:'Dr Karin Kvale',         initials:'KK', cred:'PHD', field:'Oceanography',             tag:'marine',  institution:'NIWA New Zealand',                  location:'New Zealand',     qual:'PhD Climate Science (UNSW)',  cause:'Ocean Carbon',          ipo:83, pubs:31, since:2007, collabs:4, expertise:['Ocean Biogeochemistry','Carbon Cycling','Climate Modelling','Microplastics'], bio:"Dr Karin Kvale is an Earth System modeller working on the interactions between plastic pollution and climate science. She has a background in Environmental Science (BSc from Indiana University, USA), Atmospheric Science (MSc from University of Victoria, Canada), and Climate Science (PhD from University of New South Wales, Australia).\n\nPrior to moving to New Zealand she was a researcher at the GEOMAR Helmholtz Centre for Ocean Research in Kiel, Germany, where she worked on biogeochemical model parameter optimisation, climate dynamics and microplastics modelling.\n\nIn 2021 she moved to New Zealand and currently runs her own consultancy for basic and applied climate research." },
+  { name:'Dr Paula Sangines',      initials:'PS', cred:'PHD', field:'Conservation Biology',     tag:'biology', institution:'Imperial College London',             location:'United Kingdom',  qual:'PhD Conservation Biology',    cause:'Biodiversity',          ipo:77, pubs:19, since:2012, collabs:5, expertise:['Species Conservation','Habitat Loss','Population Genetics','Rewilding'], bio:"Dr Paula Sangines is a conservation biologist at Imperial College London whose research focuses on the population genetics of threatened species and the design of effective wildlife corridors.\n\nShe has conducted fieldwork across Europe, South America and sub-Saharan Africa, and her work informs both national conservation strategies and international biodiversity agreements.\n\nAt Sycomore, she collaborates with artists to develop projects that build public support for nature recovery at scale." },
+  { name:'Dr Xiaoyan Zhou',        initials:'XZ', cred:'PHD', field:'Climate Science',          tag:'climate', institution:'Tsinghua University',                location:'China',           qual:'PhD Climate Science',         cause:'Climate Action',        ipo:85, pubs:38, since:2006, collabs:3, expertise:['Climate Systems','Extreme Weather','Urban Heat','Emissions Modelling'], bio:"Dr Xiaoyan Zhou is a climate scientist at Tsinghua University whose research examines the dynamics of extreme weather events in a warming climate and the role of urban infrastructure in amplifying heat stress.\n\nHer work bridges physical climate science and urban planning, providing actionable insights for cities seeking to adapt to a more volatile climate.\n\nThrough Sycomore, she works with artists to visualise climate futures in ways that inspire both individual and collective action." },
+  { name:'Dr Anas Driouich',       initials:'AD', cred:'PHD', field:'Plant Biology',            tag:'biology', institution:'University of Rouen',                location:'France',          qual:'PhD Plant Biology',           cause:'Soil Health',           ipo:72, pubs:24, since:2008, collabs:2, expertise:['Plant Cell Biology','Rhizosphere','Soil Microbiome','Root Exudates'], bio:"Dr Anas Driouich is a plant biologist at the University of Rouen specialising in the interactions between plant roots and the soil microbiome.\n\nHis research illuminates how plants shape the communities of microorganisms in the rhizosphere, with implications for sustainable agriculture and carbon sequestration in soils.\n\nAt Sycomore, he collaborates with artists to develop projects that draw public attention to the hidden complexity and ecological importance of soil ecosystems." },
+  { name:'Dr Thelma Arko',         initials:'TA', cred:'PHD', field:'Environmental Health',     tag:'social',  institution:'University of Ghana',               location:'Ghana',           qual:'PhD Environmental Health',    cause:'Health & Environment',  ipo:79, pubs:16, since:2013, collabs:4, expertise:['Environmental Health','Pollution','Community Resilience','West Africa'], bio:"Dr Thelma Arko is an environmental health scientist at the University of Ghana whose research examines the health impacts of environmental degradation in West African communities.\n\nHer work connects epidemiology, environmental science and community participatory research to understand how pollution, climate change and land degradation affect human wellbeing, particularly in low-income urban and peri-urban settings." },
+  { name:'Jhon Tibocha',           initials:'JT', cred:'MSC', field:'Ecology',                  tag:'ecology', institution:'Universidad de los Andes',           location:'Colombia',        qual:'MSc Ecology',                 cause:'Tropical Biodiversity', ipo:69, pubs:8,  since:2016, collabs:3, expertise:['Tropical Ecology','Forest Dynamics','Carbon Stocks','Amazonia'], bio:"Jhon Tibocha is an ecologist based in Colombia whose research focuses on the dynamics of tropical forests and their role in global carbon storage.\n\nHis fieldwork is conducted primarily in the Amazon basin, where he studies how deforestation and forest degradation affect biodiversity and ecosystem function.\n\nAt Sycomore, he works with artists to develop projects that communicate the irreplaceable value of tropical forests to global audiences who may never visit them." },
+  { name:'Margherita Bertossi',    initials:'MB', cred:'PHD', field:'Geoscience & Glaciology',  tag:'climate', institution:'University of Bologna',              location:'Italy',           qual:'PhD Geoscience',              cause:'Glaciers & Ice',        ipo:73, pubs:12, since:2015, collabs:2, expertise:['Glaciology','Ice Core Analysis','Palaeoclimate','Alpine Environments'], bio:"Margherita Bertossi is a geoscientist at the University of Bologna specialising in glaciology and palaeoclimate reconstruction.\n\nHer research uses ice core records from Alpine and Arctic environments to understand how the climate has changed over thousands of years, providing crucial context for projections of future warming.\n\nAt Sycomore, she collaborates with artists to create works that make the deep history of the climate emotionally tangible and personally meaningful." },
+  { name:'Matthew Desouza',        initials:'MD', cred:'PHD', field:'Ecology',                  tag:'ecology', institution:'University of British Columbia',     location:'Canada',          qual:'PhD Ecology',                 cause:'Biodiversity',          ipo:75, pubs:17, since:2014, collabs:3, expertise:['Forest Ecology','Species Interactions','Mycorrhizal Networks','Conservation'], bio:"Matthew Desouza is an ecologist at the University of British Columbia whose research investigates the role of mycorrhizal fungal networks in forest ecosystem dynamics and resilience.\n\nHis work has implications for forest management, biodiversity conservation and climate mitigation, and he has been at the forefront of efforts to communicate the extraordinary complexity of forest ecosystems to public and policy audiences." },
+  { name:'Megan Elsmore',          initials:'ME', cred:'PHD', field:'Marine Ecology',           tag:'marine',  institution:'University of Auckland',             location:'New Zealand',     qual:'PhD Marine Ecology',          cause:'Marine Conservation',   ipo:78, pubs:11, since:2016, collabs:3, expertise:['Seagrass Ecosystems','Coastal Ecology','Estuary Health','Blue Carbon'], bio:"Megan Elsmore is a marine ecologist at the University of Auckland specialising in the ecology and conservation of seagrass meadows and coastal blue carbon ecosystems.\n\nHer research examines how human pressures — including coastal development, nutrient pollution and climate change — are degrading seagrass habitats, and how restoration interventions can help recover both biodiversity and carbon storage." },
+  { name:'Mila Van Roey',          initials:'MV', cred:'PHD', field:'Sustainability Science',   tag:'social',  institution:'KU Leuven',                         location:'Belgium',         qual:'PhD Sustainability Science',  cause:'Circular Economy',      ipo:71, pubs:9,  since:2017, collabs:4, expertise:['Circular Economy','Life Cycle Assessment','Sustainable Production','Fashion'], bio:"Mila Van Roey is a sustainability scientist at KU Leuven whose research focuses on the environmental impacts of the fashion and textile industry and the potential for circular economy approaches to reduce these impacts.\n\nShe has developed life cycle assessment frameworks for garment production and works with industry partners to develop evidence-based sustainability strategies. She is a key member of Sycomore's Fast Fashion project group." },
+  { name:'Natália Silva',          initials:'NS', cred:'PHD', field:'Environmental Chemistry',  tag:'climate', institution:'University of São Paulo',            location:'Brazil',          qual:'PhD Environmental Chemistry', cause:'Water Quality',         ipo:76, pubs:20, since:2011, collabs:2, expertise:['Water Pollution','Microplastics','River Ecosystems','Toxicology'], bio:"Natália Silva is an environmental chemist at the University of São Paulo whose research focuses on the detection, fate and ecological impacts of microplastics and chemical pollutants in freshwater ecosystems.\n\nHer fieldwork is conducted in the major river systems of South America, including the Amazon and Paraná basins, and her findings inform national environmental policy on water quality and plastic pollution." },
+  { name:'Rianne Pap',             initials:'RP', cred:'PHD', field:'Evolutionary Biology',     tag:'biology', institution:'University of Groningen',            location:'Netherlands',     qual:'PhD Evolutionary Biology',    cause:'Biodiversity',          ipo:80, pubs:28, since:2008, collabs:5, expertise:['Evolutionary Ecology','Bird Migration','Climate Adaptation','Population Biology'], bio:"Rianne Pap is an evolutionary biologist at the University of Groningen whose research examines how species adapt to environmental change, with a particular focus on migratory birds and the physiological and genetic mechanisms of climate adaptation.\n\nHer work combines field observation, experimental biology and genomics to understand how rapidly changing environments are affecting wildlife populations." },
+];
+
+let currentField = 'all';
+let activeRow = null;
+
+function buildList(data) {
+  const el = document.getElementById('sciList');
+  el.innerHTML = '';
+  const groups = {};
+  data.forEach(s => {
+    const key = s.name.replace(/^(Dr\.?\s+)/i,'')[0].toUpperCase();
+    (groups[key] = groups[key]||[]).push(s);
+  });
+  Object.keys(groups).sort().forEach(letter => {
+    const h = document.createElement('div');
+    h.className = 'letter-hdr'; h.textContent = letter;
+    el.appendChild(h);
+    groups[letter].forEach(sci => {
+      const row = document.createElement('div');
+      row.className = 'sci-row';
+      row.innerHTML = `
+        <div class="sci-avatar" style="background:#e4e4e4;">${sci.initials}</div>
+        <div>
+          <div class="sci-row-name">${sci.name}</div>
+          <div class="sci-row-sub">${sci.field}</div>
+        </div>`;
+      row.addEventListener('click', () => openSci(sci, row));
+      el.appendChild(row);
+    });
+  });
+}
+
+function filterSci(q) {
+  const filtered = SCIENTISTS.filter(s =>
+    s.name.toLowerCase().includes(q.toLowerCase()) &&
+    (currentField==='all' || s.tag===currentField)
+  );
+  buildList(filtered);
+}
+
+function filterField(el, tag) {
+  currentField = tag;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  filterSci(document.getElementById('searchInput').value);
+}
+
+function openSci(sci, rowEl) {
+  if(activeRow) activeRow.classList.remove('active');
+  rowEl.classList.add('active');
+  activeRow = rowEl;
+
+  /* populate */
+  document.getElementById('bcName').textContent  = sci.name;
+  document.getElementById('dPhoto').textContent   = sci.initials;
+  document.getElementById('dName').textContent    = sci.name;
+  document.getElementById('dCred').textContent    = sci.cred;
+
+  const bioHTML = sci.bio.split('\n\n').map(p=>`<p>${p}</p>`).join('');
+  document.getElementById('dBio').innerHTML       = bioHTML;
+  document.getElementById('dAboutBio').innerHTML  = bioHTML;
+
+  document.getElementById('dStat1').textContent   = sci.pubs;
+  document.getElementById('dStat2').textContent   = 2026 - sci.since;
+  document.getElementById('dStat3').textContent   = sci.collabs;
+  document.getElementById('dStat4').textContent   = '1';
+
+  document.getElementById('fField').textContent   = sci.field;
+  document.getElementById('fInst').textContent    = sci.institution;
+  document.getElementById('fLoc').textContent     = sci.location;
+  document.getElementById('fQual').textContent    = sci.qual;
+  document.getElementById('fCause').textContent   = sci.cause;
+  document.getElementById('fTags').innerHTML      = sci.expertise.map(e=>`<div class="etag">${e}</div>`).join('');
+
+  const btn = document.getElementById('followBtn');
+  btn.textContent = 'Follow'; btn.classList.remove('following');
+  document.getElementById('followCount').textContent = Math.floor(Math.random()*35+3);
+
+  /* reset tabs */
+  switchTabById('research');
+
+  /* switch views */
+  document.getElementById('listView').classList.remove('active');
+  const dv = document.getElementById('detailView');
+  dv.classList.add('active');
+  dv.classList.remove('fade-in');
+  void dv.offsetWidth;
+  dv.classList.add('fade-in');
+  window.scrollTo(0,0);
+}
+
+function goBack() {
+  document.getElementById('detailView').classList.remove('active');
+  document.getElementById('listView').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function toggleFollow(btn) {
+  const c = document.getElementById('followCount');
+  let n = parseInt(c.textContent)||0;
+  if(btn.classList.contains('following')) {
+    btn.textContent='Follow'; btn.classList.remove('following'); c.textContent=Math.max(0,n-1);
+  } else {
+    btn.textContent='Following ✓'; btn.classList.add('following'); c.textContent=n+1;
+  }
+}
+
+function switchTab(el, id) {
+  document.querySelectorAll('.dtab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.dtab-pane').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('pane-'+id).classList.add('active');
+}
+function switchTabById(id) {
+  const ids=['research','about','collab'];
+  document.querySelectorAll('.dtab').forEach((t,i)=>t.classList.toggle('active',i===ids.indexOf(id)));
+  document.querySelectorAll('.dtab-pane').forEach(p=>p.classList.remove('active'));
+  const p=document.getElementById('pane-'+id); if(p) p.classList.add('active');
+}
+
+buildList(SCIENTISTS);
+</script>
+</body>
+</html>
